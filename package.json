@@ -1,0 +1,70 @@
+{
+  "name": "clone-yumemi-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .tsx,.ts src/",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:style": "stylelint '**/*.{css,scss}'",
+    "format": "prettier --write \"**/*.+(js|json|yml|ts|tsx)\"",
+    "format:style": "stylelint --fix '**/*.{css,scss}'",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "msw": "^0.44.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.53.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-vite": "^0.2.0",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "@vitejs/plugin-react": "^1.3.0",
+    "babel-loader": "^8.2.5",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.6.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.6.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.3",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "stylelint": "^14.9.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-standard-scss": "^5.0.0",
+    "stylelint-scss": "^4.3.0",
+    "typescript": "^4.6.3",
+    "vite": "^3.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{css,scss}": "stylelint --fix"
+  }
+}
