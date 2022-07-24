@@ -14,25 +14,33 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
     "msw": "^0.44.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
     "sass": "^1.53.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
+    "@storybook/addon-a11y": "^6.5.9",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
     "@storybook/addon-interactions": "^6.5.9",
     "@storybook/addon-links": "^6.5.9",
     "@storybook/builder-vite": "^0.2.0",
+    "@storybook/jest": "^0.0.10",
     "@storybook/react": "^6.5.9",
+    "@storybook/test-runner": "^0.4.0",
     "@storybook/testing-library": "^0.0.13",
+    "@testing-library/react": "^13.3.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "@vitejs/plugin-react": "^1.3.0",
@@ -41,6 +49,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.2.6",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.6.0",
     "eslint-plugin-jsx-a11y": "^6.6.0",
@@ -49,7 +58,7 @@
     "eslint-plugin-storybook": "^0.6.1",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.1",
-    "jest": "^28.1.3",
+    "jest": "^27.5.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "stylelint": "^14.9.1",
@@ -59,7 +68,8 @@
     "stylelint-config-standard-scss": "^5.0.0",
     "stylelint-scss": "^4.3.0",
     "typescript": "^4.6.3",
-    "vite": "^3.0.0"
+    "vite": "^3.0.0",
+    "vite-tsconfig-paths": "^3.5.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

@@ -10,6 +10,14 @@ https://vitejs.dev/guide/
 npm create vite clone-yumemi-frontend -- --template react-ts
 ```
 
+### パス alias 設定
+
+[Vite+React+TypeScript+EsLint で、Import パスにエイリアスを使うためにハマったこと](https://zenn.dev/longbridge/articles/5e33ff1a625158#vite-%2B-react-%2B-typescript%E3%81%A7%E3%83%91%E3%82%B9%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9%E3%81%AE%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95)
+
+以下を使えば多少容易にできる
+
+[vite-tsconfig-paths](https://github.com/aleclarson/vite-tsconfig-paths)
+
 ## フォーマット設定（eslint/prettier/stylelint）
 
 [Vite で作成した React（TypeScript）プロジェクトに EsLint と Prettier を導入する（2022/02）](https://zenn.dev/longbridge/articles/ae3aa36cf17d73)
@@ -40,6 +48,7 @@ Installing eslint-plugin-react@^7.28.0, @typescript-eslint/eslint-plugin@latest,
 npm install eslint-config-airbnb-typescript --save-dev
 npm i -D eslint-plugin-unused-imports
 npm i -D eslint-plugin-import
+npm i -D eslint-import-resolver-typescript
 npm i -D eslint-plugin-storybook@latest
 npm i -D eslint-plugin-jest
 ```
@@ -140,9 +149,49 @@ react18 と @mdx-js v2 の相性の問題？ (2022/7/16 時点では未解決)
 
 mdx 関係はバグがいくつかありそう。明確な回避方法が分からない。mdx 使わない方向で対処
 
-mdx ファイルを使わなければ、この問題にはぶつからないため、
+mdx ファイルを使わなければ、この問題にはぶつからないため
 
-[[Bug] 'mdx' is not exported by node_modules/@mdx-js/react/index.js](https://github.com/storybookjs/builder-vite/issues/421)
+- [[Bug] 'mdx' is not exported by node_modules/@mdx-js/react/index.js](https://github.com/storybookjs/builder-vite/issues/421)
+
+以下問題 1 の対処やったが解決せず（参考までに貼り）
+
+- [Storybook が Vite の Builder で動かない問題の回避策](https://zenn.dev/yogarasu/articles/75f7129d7a40bb)
+
+### パス alias 設定
+
+以下の vite.config.ts を流用する方法ではうまくいかず
+
+[Vite + React + TypeScript に Vite 用 Storybook を導入する。Storybook は必要だぞ](https://zenn.dev/longbridge/articles/13e65ef71455e4#storybook-%E8%B5%B7%E5%8B%95%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-.main.js-%E3%81%AE%E8%A8%AD%E5%AE%9A)
+
+以下でうまくいった。
+
+```javascript
+  viteFinal: async (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      src: path.resolve(__dirname, '../src'),
+    };
+    return config;
+  },
+```
+
+### storybook test
+
+```
+npm i -D @storybook/addon-interactions @storybook/jest @storybook/testing-library @storybook/test-runner jest
+```
+
+[Storybook 単体でインタラクションテストを実施する](https://zenn.dev/azukiazusa/articles/storybook-interaction-testing)
+
+[Interaction Testing with Storybook](https://storybook.js.org/blog/interaction-testing-with-storybook/)
+
+### その他 addon
+
+a11y
+
+```
+npm -i -D @storybook/addon-a11y
+```
 
 ## その他
 

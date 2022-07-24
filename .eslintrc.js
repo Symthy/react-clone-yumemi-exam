@@ -137,6 +137,9 @@ module.exports = {
         ]
       }
     ],
+    'import/resolver': {
+      typescript: []
+    },
     'react/no-unescaped-entities': 'warn' // error になって欲しくはないため warn に落とす
   }
 };
