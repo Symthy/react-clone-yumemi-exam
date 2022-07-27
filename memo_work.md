@@ -185,9 +185,9 @@ npm i -D @storybook/addon-interactions @storybook/jest @storybook/testing-librar
 
 [Interaction Testing with Storybook](https://storybook.js.org/blog/interaction-testing-with-storybook/)
 
-### その他 addon
+### addon
 
-a11y
+#### a11y
 
 ```
 npm -i -D @storybook/addon-a11y
@@ -233,3 +233,37 @@ yarn
 - Playwright
 
   - 複数のページ（タブ）を単一のテストケースでサポートできること
+
+### msw
+
+```
+npm -i -D msw
+npm -i -D msw-storybook-addon
+```
+
+package.json に以下追加
+
+```
+"scripts": {
+  "init-msw": "msw init public/"
+}
+```
+
+```
+"msw": {
+  "workerDirectory": "public"
+}
+```
+
+mocks 定義
+
+```
+touch src/mocks/handlers.js
+touch src/mocks/browser.js
+```
+
+ref:
+
+- [Mock Service Worker: GETTING STARED](https://mswjs.io/docs/getting-started)
+- [React に MSW を導入する手順](https://zenn.dev/higuchimakoto/articles/d9865193910046)
+- [react+vite を playwright+msw で自動テストする](https://zenn.dev/dyoshikawa/articles/07ab82a5cbcde0)
