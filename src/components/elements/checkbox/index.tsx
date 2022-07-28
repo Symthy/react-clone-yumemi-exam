@@ -3,10 +3,10 @@ import { useState } from 'react';
 type CheckBoxProps = {
   id: string;
   label: string;
-  onChangeSelectState: (id: string, isChecked: boolean) => void;
+  onToggleSelectedState: (id: string, isChecked: boolean) => void;
 };
 
-export const CheckBox = ({ id, label, onChangeSelectState: onToggleSelectedState }: CheckBoxProps) => {
+export const CheckBox = ({ id, label, onToggleSelectedState: onToggleSelectedState }: CheckBoxProps) => {
   const [isChecked, setIsCheckedd] = useState(false);
   const onChange = () => {
     setIsCheckedd(!isChecked);
@@ -15,11 +15,9 @@ export const CheckBox = ({ id, label, onChangeSelectState: onToggleSelectedState
   const checkboxID = `checkbox-${id}`;
 
   return (
-    <>
-      <div>
-        <input type='checkbox' id={checkboxID} checked={isChecked} onChange={onChange} />
-        <label htmlFor={checkboxID}>{label}</label>
-      </div>
-    </>
+    <div>
+      <input type='checkbox' id={checkboxID} checked={isChecked} onChange={onChange} />
+      <label htmlFor={checkboxID}>{label}</label>
+    </div>
   );
 };

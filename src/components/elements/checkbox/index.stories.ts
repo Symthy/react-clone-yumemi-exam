@@ -5,6 +5,7 @@ export default { component: CheckBox } as ComponentMeta<typeof CheckBox>;
 
 export const Index: ComponentStoryObj<typeof CheckBox> = {
   args: {
-    label: '福岡県'
+    id: '1',
+    label: 'item'
   }
 };
