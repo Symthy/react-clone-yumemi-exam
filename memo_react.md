@@ -13,6 +13,7 @@
 大規模向け。components の下に色々置くでは見通しが悪くなるので、機能ごとに分け、さらに構成要素毎にフォルダを切る。
 
 - [React ベストプラクティスの宝庫！「bulletproof-react」が勉強になりすぎる件](https://zenn.dev/meijin/articles/bulletproof-react-is-best-architecture)
+- https://github.com/alan2207/bulletproof-react
 
 ```
 src
@@ -446,6 +447,22 @@ npm i -D @storybook/addon-interactions
 npm run test-storybook
 ```
 
+### Visual Testing (Github Action)
+
+ref: https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/
+
+```
+npm i -D chromatic
+// access to https://www.chromatic.com/start
+npx chromatic --project-token=1b98b5ba4c9e
+```
+
+refs:
+
+- [Chromatic と storybook で UI のテストを自動化してみた](https://zenn.dev/kyo9bo/articles/9909ba89c42a77)
+- [storybook の VRT で Chromatic を試す](https://zenn.dev/wintyo/articles/6bea3e999ad537)
+- [Chromatic のプレビューリンクを自動で PR 上にコメントする](https://zenn.dev/matken/articles/chromatic-preview-comment)
+
 ## React 諸々
 
 ※ドキュメント見ろ
@@ -470,6 +487,7 @@ refs:
 
 - [【React】カスタムフックと本気で向き合ってみた](https://qiita.com/cheez921/items/af5878b0c6db376dbaf0)
 - [React Doc: 独自フックの作成](https://ja.reactjs.org/docs/hooks-custom.html)
+- [useCallback はとにかく使え！　特にカスタムフックでは](https://blog.uhy.ooo/entry/2021-02-23/usecallback-custom-hooks/)
 
 ### Lazy
 
@@ -564,6 +582,11 @@ export const AppRoutes = () => {
   return <>{element}</>;
 };
 ```
+
+### React Query
+
+- [REST API なら React Query がファーストチョイス](https://zenn.dev/brachio_takumi/articles/20210226-react-query)
+- [React Query の Suspese Mode を使ってみた! [TypeScript]](https://re-engines.com/2022/04/11/react-query-suspense/)
 
 ### State 戦略
 
@@ -676,3 +699,14 @@ PLOP：テンプレートからファイル生成に使える
 ### eslint での 依存関係チェック
 
 [依存関係のチェック（strict-dependencies）](https://zenn.dev/yoshiko/articles/0994f518015c04#%E4%BE%9D%E5%AD%98%E9%96%A2%E4%BF%82%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%EF%BC%88strict-dependencies%EF%BC%89)
+
+### Headless Component
+
+Headless Component とは一般的にはスタイルを持たない Component
+
+この思想で作られている
+
+- [Headless UI](https://headlessui.com/)
+- [React Spectrum (Stately + Aria)](https://react-spectrum.adobe.com/index.html)
+
+ref: [Headless Component 開発をはじめよう (Headless UI + React Spectrum)](https://zenn.dev/matamatanot/articles/7572dccafbc96d)
