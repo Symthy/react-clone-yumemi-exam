@@ -31,6 +31,7 @@ module.exports = {
     'node_modules',
     'mockServiceWorker.js',
     '*.config.ts',
+    '*.config.js',
     '.eslintrc.js',
     '.prettierrc.js',
     '.storybook'
@@ -137,9 +138,9 @@ module.exports = {
         ]
       }
     ],
-    'import/resolver': {
-      typescript: []
-    },
+    // 'import/resolver': {
+    //   typescript: []
+    // },
     'react/no-unescaped-entities': 'warn' // error になって欲しくはないため warn に落とす
   }
 };

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { SelectionArea } from '.';
+import { SelectionArea } from './selection-area';
 import { SelectableItem } from './types';
 
 export default { component: SelectionArea } as ComponentMeta<typeof SelectionArea>;
@@ -20,13 +20,13 @@ const items: Array<SelectableItem> = [
 export const MultiItems: ComponentStoryObj<typeof SelectionArea> = {
   args: {
     title: 'Selectable Items',
-    selectableItems: { all: items, isEmpty: false }
+    selectableItems: items
   }
 };
 
 export const NoItem: ComponentStoryObj<typeof SelectionArea> = {
   args: {
     title: 'Selectable Items',
-    selectableItems: { all: [], isEmpty: true }
+    selectableItems: items
   }
 };

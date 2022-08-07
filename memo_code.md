@@ -1,4 +1,4 @@
-# memo
+# コード指針
 
 [保守性の高い React hooks コードの指針](https://zenn.dev/haniwa_www/articles/8ebacbd8e24321)
 

@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { MultiLineChart } from './MultiLineChart';
-
+import { MultiLineChart } from './multi-line-chart';
 import { MultiLineChartInput } from './types';
 
 export default { component: MultiLineChart } as ComponentMeta<typeof MultiLineChart>;

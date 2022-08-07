@@ -1,4 +1,4 @@
-import { convertToPlotData } from './MultiLineChart';
+import { convertToPlotData } from './multi-line-chart';
 
 test('convert to plot data', () => {
   const testInput = {
