@@ -116,6 +116,11 @@ refs:
 - [【React】husky でコードフォーマットとコミットメッセージ生成を自動化する](https://zenn.dev/kindmaple/articles/44c3ee41bbfd91)
 - [husky v7 と lint-staged でコミット時にリント実行](https://rinoguchi.net/2021/12/husky-and-lint-staged.html)
 
+```
+npm husky install
+npx husky add .husky/pre-commit "npm run lint-staged"
+```
+
 ## storybook
 
 ```

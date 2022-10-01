@@ -1,8 +1,11 @@
 // Registers the msw addon
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { startMockWorker } from '../src/mocks/browser';
 
 // Initialize MSW
 initialize();
+
+startMockWorker();
 
 // Provide the MSW addon decorator globally
 export const decorators = [mswDecorator];

@@ -43,7 +43,7 @@ module.exports = {
     },
     ecmaVersion: 'latest',
     // sourceType: 'module',
-    tsconfigRootDir: __dirname, // プロジェクトルートの絶対パス
+    tsconfigRootDir: __dirname, // プロジェクトルートの絶対パスの設定
     project: './tsconfig.json' // コンパイラ設定ファイルの設定（tsconfigRootDirからの相対パス）
   },
   plugins: [
