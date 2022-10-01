@@ -26,7 +26,7 @@ export const MultiItems: ComponentStoryObj<typeof SelectionArea> = {
 
 export const NoItem: ComponentStoryObj<typeof SelectionArea> = {
   args: {
-    title: 'Selectable Items',
-    selectableItems: items
+    title: 'Selectable Items (Nothing)',
+    selectableItems: []
   }
 };

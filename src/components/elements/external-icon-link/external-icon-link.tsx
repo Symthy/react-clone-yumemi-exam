@@ -4,7 +4,7 @@ type ExternalIconLinkProps = {
   svgFilePath: string;
   url: string;
   errorText: string;
-  size: number;
+  size?: number;
 };
 
 export const ExternalIconLink = ({ svgFilePath, url, errorText, size }: ExternalIconLinkProps) => {
@@ -18,7 +18,7 @@ export const ExternalIconLink = ({ svgFilePath, url, errorText, size }: External
   return (
     <ReactSVG
       beforeInjection={(svg) => {
-        svg.setAttribute('style', `width: ${size}; height: ${size}; cursor: pointer;`);
+        svg.setAttribute('style', size ? `width: ${size}; height: ${size}; cursor: pointer;` : 'cursor: pointer;');
       }}
       src={svgFilePath}
       onClick={onOpenLink}
