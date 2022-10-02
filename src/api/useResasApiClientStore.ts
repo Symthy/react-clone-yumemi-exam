@@ -1,11 +1,17 @@
-import { atom, SetStateAction, useAtom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 import { ResasApiClient } from './resasApiClient';
 
 export const resasApiClientAtom = atom<ResasApiClient>(new ResasApiClient());
 
-export const useResasApiClientStore = (): [ResasApiClient, (update: SetStateAction<ResasApiClient>) => void] => {
+export const useResasApiClientStore = (): [boolean, ResasApiClient, (apiKey: string) => void] => {
   const [apiClient, setApiClient] = useAtom(resasApiClientAtom);
-  return [apiClient, setApiClient];
+
+  const setApiKey = (apiKey: string) => {
+    setApiClient(new ResasApiClient(apiKey));
+  };
+  const initialized = apiClient.initialized();
+
+  return [initialized, apiClient, setApiKey];
 };
 
 // if used zustand

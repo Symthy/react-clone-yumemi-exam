@@ -32,6 +32,10 @@ export class ResasApiClient {
       : {};
   }
 
+  public initialized(): boolean {
+    return this.apiKey !== '';
+  }
+
   public getPrefectures(): Promise<PrefectureResponeseResult[]> {
     const response = this.apiClient.get<PrefecturesApiResponse>('/api/v1/prefectures');
     return response.then((res) => res.result);

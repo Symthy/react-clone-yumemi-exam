@@ -6,7 +6,7 @@ import { PrefecturesSelector } from 'src/components/models/prefectures-selector/
 import { Prefecture } from 'src/components/models/prefectures-selector/types';
 import { usePrefecturesQuery } from 'src/components/models/prefectures-selector/usePrefecturesQuery';
 
-export const PopulationPerPrefecturesView = () => {
+export const PopulationPerPrefecturesPage = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
 
   const {

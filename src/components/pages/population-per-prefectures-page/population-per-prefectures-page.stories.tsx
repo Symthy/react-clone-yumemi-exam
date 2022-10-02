@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { ApiClientProvider } from 'src/api/ApiClientProvider';
-import { PopulationPerPrefecturesView } from './population-per-prefectures-view';
+import { PopulationPerPrefecturesPage } from './population-per-prefectures-page';
 
-export default { component: PopulationPerPrefecturesView } as ComponentMeta<typeof PopulationPerPrefecturesView>;
+export default { component: PopulationPerPrefecturesPage } as ComponentMeta<typeof PopulationPerPrefecturesPage>;
 
-export const Default: ComponentStoryObj<typeof PopulationPerPrefecturesView> = {
+export const Default: ComponentStoryObj<typeof PopulationPerPrefecturesPage> = {
   // parameters: {
   //   msw: {
   //     handlers: [mockPrefecturesApiHandler]
