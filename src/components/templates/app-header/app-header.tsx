@@ -31,14 +31,14 @@ export const AppHeader = () => (
     <div css={styles.links}>
       <div css={styles.linkWrpper}>
         <ExternalIconLink
-          svgFilePath='../../../../public/iconmonstr-github-1.svg'
+          svgFilePath='public/iconmonstr-github-1.svg'
           url='https://github.com/Symthy/react-clone-yumemi-exam'
           errorText='Code'
         />
       </div>
       <div css={styles.linkWrpper}>
         <ExternalIconLink
-          svgFilePath='../../../../public/iconmonstr-twitter-1.svg'
+          svgFilePath='public/iconmonstr-twitter-1.svg'
           url='https://twitter.com/SYM_souten'
           errorText='Twitter'
         />

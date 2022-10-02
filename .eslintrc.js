@@ -141,6 +141,6 @@ module.exports = {
     // 'import/resolver': {
     //   typescript: []
     // },
-    'react/no-unescaped-entities': 'warn' // error になって欲しくはないため warn に落とす
+    'react/no-unknown-property': ['error', { ignore: ['css'] }] // ref: https://qiita.com/yuto-ono/items/6642b16f720c9e82fef4
   }
 };

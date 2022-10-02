@@ -198,6 +198,14 @@ npm i -D @storybook/addon-interactions @storybook/jest @storybook/testing-librar
 npm -i -D @storybook/addon-a11y
 ```
 
+## Chromatic
+
+https://www.chromatic.com/
+
+https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
+
+※Github リポジトリの settings - security - sercrets - actions で Repository sercrets に トークン(CHROMATIC_PROJECT_TOKEN) の追加が必要
+
 ## その他
 
 ### TypeScript
@@ -223,6 +231,16 @@ yarn
 - Yarn v2 は、npm との仕組みと大きく乖離しているらしい
 
 速度： npm < yarn < pnpm
+
+### npm
+
+パッケージのバージョンアップ方法
+
+```
+npx -p npm-check-updates  -c "ncu -u"
+```
+
+[package.json に記載されているパッケージのバージョンアップ方法 【 npm-check-updates, outdated 】](https://qiita.com/sugurutakahashi12345/items/df736ddaf65c244e1b4f)
 
 ### E2E テストフレームワーク
 

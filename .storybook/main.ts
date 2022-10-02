@@ -23,7 +23,8 @@ module.exports = {
   viteFinal: async (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      src: path.resolve(__dirname, '../src')
+      src: path.resolve(__dirname, '../src'),
+      public: path.resolve(__dirname, '../public')
     };
 
     // ref: https://zenn.dev/rabbit/scraps/e9ab3527f49d45
