@@ -18,6 +18,7 @@ module.exports = {
     storyStoreV7: true,
     interactionsDebugger: true
   },
+  staticDirs: ['./public'], // msw用 ref: https://zenn.dev/midorimici/articles/msw-storybook#storybook-%E3%81%AE-static-directory-%E3%82%92%E6%8C%87%E5%AE%9A
 
   // vite.config.ts 再利用うまくいかなかったため直接指定
   viteFinal: async (config) => {

@@ -24,6 +24,7 @@ export class AxiosApiClient implements ApiClient {
         : {
             params: queryParams
           };
-    return this.axios.get(url, params);
+    const response = this.axios.get<T>(url, params);
+    return response.then((res) => res.data);
   }
 }

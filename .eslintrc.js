@@ -141,6 +141,14 @@ module.exports = {
     // 'import/resolver': {
     //   typescript: []
     // },
-    'react/no-unknown-property': ['error', { ignore: ['css'] }] // ref: https://qiita.com/yuto-ono/items/6642b16f720c9e82fef4
+    'react/no-unknown-property': ['error', { ignore: ['css'] }], // ref: https://qiita.com/yuto-ono/items/6642b16f720c9e82fef4
+    'jsx-a11y/label-has-associated-control': [
+      'error', // ref: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/issues/302
+      {
+        required: {
+          some: ['nesting', 'id']
+        }
+      }
+    ]
   }
 };

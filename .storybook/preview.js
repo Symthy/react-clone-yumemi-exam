@@ -4,7 +4,6 @@ import { startMockWorker } from '../src/mocks/browser';
 
 // Initialize MSW
 initialize();
-
 startMockWorker();
 
 // Provide the MSW addon decorator globally

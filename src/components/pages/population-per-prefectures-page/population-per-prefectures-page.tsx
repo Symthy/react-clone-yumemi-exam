@@ -10,15 +10,17 @@ export const PopulationPerPrefecturesPage = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
 
   const {
-    data: prefResults,
+    data: prefecturesResponse,
     isLoading,
-    isError
+    isError,
+    error
   }: UseQueryResult<PrefectureResponeseResult[], Error> = usePrefecturesQuery();
+  console.log(prefecturesResponse);
 
   const updateSelectedState = (id: string, isSelected: boolean): void => {
     const prefs = prefectures;
     const index = prefs.findIndex((pref) => String(pref.prefCode) === id);
-    if (index === -1) {
+    if (index < 0) {
       return;
     }
     prefs[index].isSelected = isSelected;
@@ -26,16 +28,20 @@ export const PopulationPerPrefecturesPage = () => {
   };
 
   useEffect(() => {
-    if (prefResults) {
-      const prefs = prefResults.map((pref) => ({ ...pref, isSelected: false }));
+    if (prefecturesResponse) {
+      const prefs = prefecturesResponse.map((pref) => ({ ...pref, isSelected: false }));
       setPrefectures(prefs);
     } else {
       setPrefectures([]);
     }
-  }, [prefResults]);
+  }, [prefecturesResponse]);
 
+  // Todo
   if (isLoading) {
     return <p>Loading...</p>;
+  }
+  if (isError) {
+    return <p>Error: {error.message}</p>;
   }
 
   return (

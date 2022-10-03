@@ -12,9 +12,23 @@
 
 前処理による共通化が可能
 
-[axios の interceptors で、リクエストの前処理を共通して行う](https://qiita.com/buntafujikawa/items/78e9204cc9ea7eaabd3d)
+- [axios の interceptors で、リクエストの前処理を共通して行う](https://qiita.com/buntafujikawa/items/78e9204cc9ea7eaabd3d)
+- [【リソース取得 API の比較】fetch と axios の 4 つの相違点](https://zenn.dev/syu/articles/9840082d1a6633)
 
-[【リソース取得 API の比較】fetch と axios の 4 つの相違点](https://zenn.dev/syu/articles/9840082d1a6633)
+レスポンスは、 AxiosResponse の形で返ってくるため注意が必要。ボディは data に格納されている
+
+```typescript
+interface AxiosResponse<T = any, D = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: AxiosResponseHeaders;
+  config: AxiosRequestConfig<D>;
+  request?: any;
+}
+```
+
+ref: [【Typescript】いろいろな型の指定方法：Axios 編](https://maasaablog.com/development/typescript/3455/#toc6)
 
 ## react-query & axios
 
