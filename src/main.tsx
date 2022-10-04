@@ -4,8 +4,7 @@ import { App } from './App';
 import './index.css';
 import { worker } from './mocks/browser';
 
-if (process.env.NODE_ENV === 'development') {
-  // const { worker } = require('./mocks/browser');
+if (import.meta.env.VITE_STARTUP_MSW === 'true') {
   await worker.start();
 }
 
