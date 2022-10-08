@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import Axios, { AxiosInstance, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 export interface ApiClient {
   get<T>(url: string, queryParams?: Record<string, any>): Promise<T>;
@@ -7,12 +7,11 @@ export interface ApiClient {
 export class AxiosApiClient implements ApiClient {
   private axios: AxiosInstance;
 
-  constructor(private baseUrl: string, config?: AxiosRequestConfig) {
+  constructor(private baseUrl: string, headers?: AxiosRequestHeaders) {
     this.axios = Axios.create({
-      ...config,
       baseURL: baseUrl,
       headers: {
-        Accept: 'application/json'
+        ...headers
       }
     });
   }
@@ -25,6 +24,6 @@ export class AxiosApiClient implements ApiClient {
             params: queryParams
           };
     const response = this.axios.get<T>(url, params);
-    return response.then((res) => res.data);
+    return response.then((res: AxiosResponse<T>) => res.data);
   }
 }

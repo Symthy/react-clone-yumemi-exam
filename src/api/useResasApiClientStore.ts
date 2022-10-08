@@ -10,7 +10,6 @@ export const useResasApiClientStore = (): [boolean, ResasApiClient, (apiKey: str
     setApiClient(new ResasApiClient(apiKey));
   };
   const initialized = apiClient.initialized();
-
   return [initialized, apiClient, setApiKey];
 };
 

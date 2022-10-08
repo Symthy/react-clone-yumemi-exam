@@ -15,7 +15,6 @@ export const PopulationPerPrefecturesPage = () => {
     isError,
     error
   }: UseQueryResult<PrefectureResponeseResult[], Error> = usePrefecturesQuery();
-  console.log(prefecturesResponse);
 
   const updateSelectedState = (id: string, isSelected: boolean): void => {
     const prefs = prefectures;

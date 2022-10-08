@@ -19,17 +19,19 @@ export class ResasApiClient {
 
   constructor(apiKey?: string) {
     this.apiKey = apiKey || '';
-    this.apiClient = new AxiosApiClient(RESAS_API_ENDPOINT, this.options());
+    this.apiClient = new AxiosApiClient(RESAS_API_ENDPOINT, this.headers());
   }
 
-  private options() {
-    return this.apiKey || this.apiKey === ''
+  private headers() {
+    const headers = {
+      Accept: 'application/json'
+    };
+    return this.apiKey
       ? {
-          headers: {
-            'x-api-key': this.apiKey
-          }
+          ...headers,
+          'x-api-key': this.apiKey
         }
-      : {};
+      : headers;
   }
 
   public initialized(): boolean {
