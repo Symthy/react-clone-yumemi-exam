@@ -1,7 +1,6 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useResasApiClient } from 'src/api/useResasApiClient';
-import { resetQueryCache } from 'src/libs/react-query';
-import { useRedirectAfterLogin } from 'src/routes/useRedirectAfterLogin';
+import { useSubmitApiKey } from './useSubmitApiKey';
 
 export const LoginPage = () => {
   const [apiKey, setApiKey] = useState('');
@@ -9,18 +8,12 @@ export const LoginPage = () => {
     setApiKey(e.target.value);
   };
 
-  const redirector = useRedirectAfterLogin();
-  const { apiClient, setApiKey: setResasApiKey } = useResasApiClient();
-  const onSumbitApiKey = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setResasApiKey(apiKey);
-    redirector();
-  };
+  const onSumbitApiKey = useSubmitApiKey(apiKey);
 
+  const { apiClient } = useResasApiClient();
   useEffect(() => {
     if (apiClient.initialized()) {
       setApiKey(apiClient.resasApiKey);
-      resetQueryCache();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

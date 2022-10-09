@@ -2,6 +2,12 @@
 
 https://tanstack.com/query/v4/docs/adapters/react-query
 
+アプリケーションの規模が大きくなるとカスタムフック化するなど抽象化が必要になってくる。
+
+抽象化の例：[React Query を使いこなすために試したこと](https://zenn.dev/himorishige/articles/76e903bc5a1aa2)
+
+react query の型は [React Query and TypeScript](https://tkdodo.eu/blog/react-query-and-type-script) が参考になる
+
 ## レスポンスとデータが undefined の場合のエラー
 
 ```typescript
@@ -13,7 +19,8 @@ return useQuery<PrefectureResponeseResult[], Error>(['prefectures'], () => apiCi
 以下のようなエラーが出た場合
 
 ```
-Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["prefectures"]
+Query data cannot be undefined. Please make sure to return a value other than
+undefined from your query function. Affected query key: ["prefectures"]
 
 Error: undefined
     at Object.onSuccess (query.ts:460:19)

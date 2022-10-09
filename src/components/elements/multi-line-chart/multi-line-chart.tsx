@@ -4,7 +4,7 @@ import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, X
 const NameKey = 'name';
 type RechartPlotData =
   | {
-      NameKey: string;
+      name: string;
     }
   | Record<string, number>;
 // const _: RechartPlotData = {
@@ -23,7 +23,7 @@ export const convertToPlotData = (input: MultiLineChartInput): RechartPlotData[]
   const dataset: RechartPlotData[] = Object.keys(input).map((key) => {
     const records = input[key];
     return {
-      NameKey: key,
+      name: key,
       ...records
     };
   });
