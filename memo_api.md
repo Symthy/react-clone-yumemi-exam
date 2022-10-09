@@ -10,10 +10,16 @@
 - [The Axios Instance](https://axios-http.com/docs/instance)
 - [Interceptors](https://axios-http.com/docs/interceptors)
 
-前処理による共通化が可能
+### 前処理による共通化が可能
 
 - [axios の interceptors で、リクエストの前処理を共通して行う](https://qiita.com/buntafujikawa/items/78e9204cc9ea7eaabd3d)
 - [【リソース取得 API の比較】fetch と axios の 4 つの相違点](https://zenn.dev/syu/articles/9840082d1a6633)
+
+Axios の重要な機能の 1 つは、その同形性
+
+ref: [Axios HTTP クライアントの完全ガイド](https://reflectoring.io/tutorial-guide-axios/)
+
+### レスポンス
 
 レスポンスは、 AxiosResponse の形で返ってくるため注意が必要。ボディは data に格納されている
 
@@ -65,6 +71,34 @@ export const TaskList = () => {
 };
 ```
 
-## refs
-
 [The React Mega-Tutorial, Chapter 6: Building an API Client](https://blog.miguelgrinberg.com/post/the-react-mega-tutorial-chapter-6-building-an-api-client)
+
+### 複数の同時リクエストの送信可能
+
+```javascript
+const axios = require('axios');
+
+const app = express();
+
+// Route Handler
+app.get('/products/:productName/inventory', (request, response) => {
+  const productName = request.params.productName;
+
+  // Call the first API for product details
+  const productApiResponse = axios.get(`http://localhost:3002/products/${productName}`);
+
+  // Call the second API for inventory details
+  const inventoryApiResponse = axios.get(`http://localhost:3002/products/${productName}/itemsInStock`);
+
+  // Consolidate results into a single result
+  Promise.all([productApiResponse, inventoryApiResponse]).then((results) => {
+    const productData = results[0].data;
+    const inventoryData = results[1].data;
+    let aggregateData = productData;
+    aggregateData.unitsInStock = inventoryData.unitsInStock;
+    response.send(aggregateData);
+  });
+});
+```
+
+ref: [Axios HTTP クライアントの完全ガイド](https://reflectoring.io/tutorial-guide-axios/)

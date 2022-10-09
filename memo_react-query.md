@@ -19,3 +19,48 @@ Error: undefined
     at Object.onSuccess (query.ts:460:19)
     at resolve (retryer.ts:103:14)
 ```
+
+## invalidate と reset の挙動の違い
+
+cacheTime : 取得済みのデータ（＝キャッシュ）を保持する時間（デフォルト 5 分）
+
+- 時間経過時は、キャッシュ破棄し、Loading 状態で データ取得
+- resetQueries はこちらをリセット（経過したとみなす）
+
+staleTime : キャッシュが古くなったと見なして再取得する時間（デフォルト 0）
+
+- 時間経過時は、キャッシュのデータを表示した上で、最新データを取得
+- invalidateQueries はこちらをリセット（経過したとみなす）
+
+```typescript
+const MyComponent = () => {
+  const queryClient = useQueryClient();
+  const { data, isLoading, isFetching } = useQuery('time', fetchTime);
+
+  const onReset = () => {
+    queryClient.resetQueries('time');
+  };
+
+  const onInvalidate = () => {
+    queryClient.invalidateQueries('time');
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (data == null) return <div>ERR!</div>;
+
+  return (
+    <div>
+      <h1>{data.getTime()}</h1>
+
+      <div>
+        <button onClick={onReset}>reset</button>
+        <button onClick={onInvalidate}>invalidate</button>
+        {isFetching && <span> (fetching...)</span>}
+      </div>
+    </div>
+  );
+};
+```
+
+ref: [react-query：invalidate と reset の挙動の違い](https://oita.oika.me/2021/09/06/react-query-reset-vs-invalidate)

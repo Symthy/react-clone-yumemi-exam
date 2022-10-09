@@ -85,6 +85,7 @@
     "stylelint-config-standard-scss": "^5.0.0",
     "stylelint-scss": "^4.3.0",
     "ts-jest": "^29.0.3",
+    "type-fest": "^3.0.0",
     "typescript": "^4.8.4",
     "vite": "^3.1.4",
     "vite-tsconfig-paths": "^3.5.1"

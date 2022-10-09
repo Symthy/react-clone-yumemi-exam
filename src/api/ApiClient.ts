@@ -1,7 +1,11 @@
 import Axios, { AxiosInstance, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
+type QueryParameters = {
+  [x: string]: string | number | boolean;
+};
+
 export interface ApiClient {
-  get<T>(url: string, queryParams?: Record<string, any>): Promise<T>;
+  get<T>(url: string, queryParams?: QueryParameters): Promise<T>;
 }
 
 export class AxiosApiClient implements ApiClient {
@@ -16,7 +20,7 @@ export class AxiosApiClient implements ApiClient {
     });
   }
 
-  async get<T>(url: string, queryParams?: Record<string, any>): Promise<T> {
+  async get<T>(url: string, queryParams?: QueryParameters): Promise<T> {
     const params =
       queryParams == null
         ? {}

@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { PrefectureResponeseResult } from 'src/api/resasApiClient';
-import { useResasApiClientStore } from 'src/api/useResasApiClientStore';
+import { useResasApiClient } from 'src/api/useResasApiClient';
+import { PREFECTURES_QUERY_KEY } from 'src/consts';
 
 export const usePrefecturesQuery = () => {
-  const [, apiCilent] = useResasApiClientStore();
-  return useQuery<PrefectureResponeseResult[], Error>(['prefectures'], () => apiCilent.getPrefectures());
+  const { apiClient } = useResasApiClient();
+  return useQuery<PrefectureResponeseResult[], Error>([PREFECTURES_QUERY_KEY], () => apiClient.getPrefectures());
 };

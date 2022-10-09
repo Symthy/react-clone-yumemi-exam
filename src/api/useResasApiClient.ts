@@ -3,14 +3,20 @@ import { ResasApiClient } from './resasApiClient';
 
 export const resasApiClientAtom = atom<ResasApiClient>(new ResasApiClient());
 
-export const useResasApiClientStore = (): [boolean, ResasApiClient, (apiKey: string) => void] => {
+type UseResasApiClientReturns = {
+  initialized: boolean;
+  apiClient: ResasApiClient;
+  setApiKey: (apiKey: string) => void;
+};
+
+export const useResasApiClient = (): UseResasApiClientReturns => {
   const [apiClient, setApiClient] = useAtom(resasApiClientAtom);
 
   const setApiKey = (apiKey: string) => {
     setApiClient(new ResasApiClient(apiKey));
   };
   const initialized = apiClient.initialized();
-  return [initialized, apiClient, setApiKey];
+  return { initialized, apiClient, setApiKey };
 };
 
 // if used zustand

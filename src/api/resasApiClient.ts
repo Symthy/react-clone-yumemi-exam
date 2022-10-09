@@ -17,7 +17,12 @@ export class ResasApiClient {
 
   private readonly apiClient: ApiClient;
 
-  constructor(apiKey?: string) {
+  constructor(apiKey?: string, apiClient?: ApiClient) {
+    if (apiClient) {
+      this.apiKey = '';
+      this.apiClient = apiClient;
+      return;
+    }
     this.apiKey = apiKey || '';
     this.apiClient = new AxiosApiClient(RESAS_API_ENDPOINT, this.headers());
   }
@@ -36,6 +41,10 @@ export class ResasApiClient {
 
   public initialized(): boolean {
     return this.apiKey !== '';
+  }
+
+  public get resasApiKey(): string {
+    return this.apiKey;
   }
 
   public getPrefectures(): Promise<PrefectureResponeseResult[]> {
