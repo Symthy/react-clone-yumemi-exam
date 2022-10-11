@@ -1,10 +1,9 @@
 // Registers the msw addon
 import { initialize, mswDecorator } from 'msw-storybook-addon';
-import { startMockWorker } from '../src/mocks/browser';
+import { mockPopulationsApiHandler, mockPrefecturesApiHandler } from '../src/mocks/handlers';
 
 // Initialize MSW
-initialize();
-startMockWorker();
+initialize(); // setup はする必要なし
 
 // Provide the MSW addon decorator globally
 export const decorators = [mswDecorator];
@@ -15,6 +14,12 @@ export const parameters = {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/
+    }
+  },
+  msw: {
+    handlers: {
+      prefectures: mockPrefecturesApiHandler,
+      populations: mockPopulationsApiHandler
     }
   }
 };

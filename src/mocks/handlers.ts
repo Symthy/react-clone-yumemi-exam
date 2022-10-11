@@ -1,15 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from 'msw';
+import { RESAS_API_ENDPOINT, RESAS_API_POPULATIONS_PATH, RESAS_API_PREFECTURES_PATH } from 'src/api/constants';
+import { forbidden } from './resolvers/errorForbidden';
 import { mockPopulationsApi } from './resolvers/mockPopulationApi';
 import { mockPrefecturesApi } from './resolvers/mockPrefecturesApi';
 
-export const mockPrefecturesApiHandler = rest.get(
-  'https://opendata.resas-portal.go.jp/api/v1/prefectures',
-  mockPrefecturesApi
-);
-export const mockPopulationsApiHandelr = rest.get(
-  'https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear',
-  mockPopulationsApi
-);
+export const mockPrefecturesApiHandler = rest.get(RESAS_API_ENDPOINT + RESAS_API_PREFECTURES_PATH, mockPrefecturesApi);
+export const mockPopulationsApiHandler = rest.get(RESAS_API_ENDPOINT + RESAS_API_POPULATIONS_PATH, mockPopulationsApi);
 
-export const handlers = [mockPrefecturesApiHandler, mockPopulationsApiHandelr];
+export const mockPrefecturesForbiddenHandler = rest.get(RESAS_API_ENDPOINT + RESAS_API_PREFECTURES_PATH, forbidden);
+
+export const handlers = [mockPrefecturesApiHandler, mockPopulationsApiHandler];

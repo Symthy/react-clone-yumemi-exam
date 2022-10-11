@@ -8,6 +8,8 @@ https://tanstack.com/query/v4/docs/adapters/react-query
 
 react query の型は [React Query and TypeScript](https://tkdodo.eu/blog/react-query-and-type-script) が参考になる
 
+[非同期処理に疲れた方に、ReactQuery の処方箋](https://zenn.dev/t_keshi/articles/react-query-prescription#reactquery%E3%81%AE%E5%87%A6%E6%96%B9%E7%AE%8B)
+
 ## レスポンスとデータが undefined の場合のエラー
 
 ```typescript
@@ -71,3 +73,7 @@ const MyComponent = () => {
 ```
 
 ref: [react-query：invalidate と reset の挙動の違い](https://oita.oika.me/2021/09/06/react-query-reset-vs-invalidate)
+
+## Error handling
+
+[React Query Error Handling](https://tkdodo.eu/blog/react-query-error-handling#error-boundaries)
