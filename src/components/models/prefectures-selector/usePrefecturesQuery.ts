@@ -5,5 +5,7 @@ import { PREFECTURES_QUERY_KEY } from 'src/consts';
 
 export const usePrefecturesQuery = () => {
   const { apiClient } = useResasApiClient();
-  return useQuery<PrefectureResponeseResult[], Error>([PREFECTURES_QUERY_KEY], () => apiClient.getPrefectures());
+  return useQuery<PrefectureResponeseResult[], Error>([PREFECTURES_QUERY_KEY], () => apiClient.getPrefectures(), {
+    useErrorBoundary: true
+  });
 };

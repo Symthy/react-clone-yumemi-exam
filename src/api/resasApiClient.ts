@@ -1,7 +1,10 @@
 import { ApiClient, AxiosApiClient } from './ApiClient';
+import { RESAS_API_ENDPOINT, RESAS_API_POPULATIONS_PATH, RESAS_API_PREFECTURES_PATH } from './constants';
+import { resolveApiError } from './error';
+import { ErrorResponseBody } from './types';
 
-const RESAS_API_ENDPOINT = 'https://opendata.resas-portal.go.jp';
-// ref: https://opendata.resas-portal.go.jp/docs/api/v1/prefectures.html
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+const isPrefecturesApiResponse = (res: any): res is PrefecturesApiResponse => res.result !== undefined;
 
 export type PrefectureResponeseResult = {
   prefCode: number;
@@ -47,16 +50,20 @@ export class ResasApiClient {
     return this.apiKey;
   }
 
-  public getPrefectures(): Promise<PrefectureResponeseResult[]> {
-    const response = this.apiClient.get<PrefecturesApiResponse>('/api/v1/prefectures');
-    return response.then((res) => res.result);
+  public async getPrefectures(): Promise<PrefectureResponeseResult[]> {
+    const res = await this.apiClient.get<PrefecturesApiResponse | ErrorResponseBody>(RESAS_API_PREFECTURES_PATH);
+    if (isPrefecturesApiResponse(res)) {
+      return res.result;
+    }
+    throw resolveApiError(res.message || '', res.statusCode);
   }
 
-  public getPopulations(prefCode: string, cityCode = '-') {
+  public async getPopulations(prefCode: string, cityCode = '-') {
     // specified '-' to cityCode when select all city
-    return this.apiClient.get('/api/v1/population/composition/perYear', {
+    return this.apiClient.get(RESAS_API_POPULATIONS_PATH, {
       prefCode,
       cityCode
     });
+    // Todo: error case
   }
 }

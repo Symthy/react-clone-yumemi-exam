@@ -1,4 +1,4 @@
-# コード指針
+# コード
 
 [保守性の高い React hooks コードの指針](https://zenn.dev/haniwa_www/articles/8ebacbd8e24321)
 
@@ -15,3 +15,15 @@ bad..
 - useEffect に deps 自動補完除外コメントを入れる
 - state はプリミティブにする
 - props にフラグがある場合はコンポーネントを分ける
+
+[React×TypeScript の onChange の props 渡しで諦めない](https://zenn.dev/nbr41to/articles/3f1ae8cbc532b6)
+
+```typescript
+const ParentComp = () => {
+  const [inputValue, setInputValue] = React.useState('');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+  return <ChildComp value={inputValue} onChange={(e) => handleChange(e)} />;
+};
+```
