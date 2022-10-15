@@ -16,13 +16,13 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react", // viteはコンパイル時これを無視する ref: https://zenn.dev/riemonyamada/articles/e1430eace41f79
-    "baseUrl": "."
-    // "paths": {
-    //   // vite-tsconfig-paths で vite に伝達
-    //   "src/*": ["src/*"],
-    //   "public/*": ["public/*"]
-    // }
+    "baseUrl": ".",
+    "paths": {
+      // vite-tsconfig-paths で vite に伝達
+      "src/*": ["src/*"],
+      "public/*": ["public/*"]
+    }
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src/**/*", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
