@@ -10,6 +10,9 @@ react query の型は [React Query and TypeScript](https://tkdodo.eu/blog/react-
 
 [非同期処理に疲れた方に、ReactQuery の処方箋](https://zenn.dev/t_keshi/articles/react-query-prescription#reactquery%E3%81%AE%E5%87%A6%E6%96%B9%E7%AE%8B)
 
+- [REST API なら React Query がファーストチョイス](https://zenn.dev/brachio_takumi/articles/20210226-react-query)
+- [React Query の Suspese Mode を使ってみた! [TypeScript]](https://re-engines.com/2022/04/11/react-query-suspense/)
+
 ## レスポンスとデータが undefined の場合のエラー
 
 ```typescript

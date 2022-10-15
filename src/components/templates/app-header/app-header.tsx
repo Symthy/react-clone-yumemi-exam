@@ -6,22 +6,22 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '4em',
+    height: '4rem',
     border: 'solid',
-    borderWidth: '0.1em 0em'
+    borderWidth: '2px 0'
   }),
   title: css({
-    marginLeft: '1em'
+    fontSize: '1rem',
+    marginLeft: '1rem'
   }),
   links: css({
-    paddingTop: '0.5em',
-    marginRight: '1em',
+    marginRight: '1rem',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center'
   }),
   linkWrpper: css({
-    margin: '0 0.5em'
+    margin: '0 0.5rem'
   })
 };
 

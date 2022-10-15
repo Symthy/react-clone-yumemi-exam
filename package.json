@@ -36,6 +36,7 @@
     "react-router-dom": "^6.4.1",
     "react-svg": "^15.1.9",
     "recharts": "^2.1.14",
+    "sanitize.css": "^13.0.0",
     "sass": "^1.55.0"
   },
   "devDependencies": {

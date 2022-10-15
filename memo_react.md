@@ -1,164 +1,5 @@
 # react 実践のための まとめメモ
 
-## フォルダ構成
-
-大事なのは、
-
-- １機能を構成する要素(hooks/provider/context 等)は１パッケージにまとめて格納すること（hooks/provider 毎での分散配置はアンチパターン）
-- 横断的関心事（共通コンポ/関数や定数等）と機能(features)で閉じる物を明確に分ける
-- 機能(features)で閉じて、依存関係を「機能(features) -> 横断的関心事」とする。このように全体で依存関係が入り乱れないようにする
-
-### サンプル
-
-大規模向け。components の下に色々置くでは見通しが悪くなるので、機能ごとに分け、さらに構成要素毎にフォルダを切る。
-
-- [React ベストプラクティスの宝庫！「bulletproof-react」が勉強になりすぎる件](https://zenn.dev/meijin/articles/bulletproof-react-is-best-architecture)
-- https://github.com/alan2207/bulletproof-react
-
-```
-src
-|
-+-- assets      # イメージ、フォントなどのすべての静的ファイルを格納
-|
-+-- components  # 共有コンポーネント
-|
-+-- config      # グローバル構成、env変数など
-|
-+-- features    # 機能ベースモジュール ★
-|    +--<featureName>
-|        +-- api         # エクスポートされたAPIリクエスト宣言と特定機能に関連するAPIフック
-|        |
-|        +-- components  # 特定機能にスコープした構成部品
-|        |
-|        +-- hooks       # 特定機能にスコープしたhooks
-|        |
-|        +-- routes      # 特定機能にスコープしたrouteコンポーネント # イメージ的にはpage兼routingのイメージ
-|        |
-|        +-- stores      # 特定機能にスコープした状態ストア
-|        |
-|        +-- types       # 特定機能のドメインの型
-|        |
-|        +-- utils       # 特定機能のUtility関数
-|        |
-|        +-- index.ts    # 機能のエントリポイントの場合は、特定の機能のパブリックAPIとして機能し、機能の外部で使用する必要があるすべてのものをエクスポートする。
-|
-+-- hooks       # 共有フック
-|
-+-- lib         # 外部ライブラリの再エクスポート
-|
-+-- providers   # all of the application providers
-|
-+-- routes      # routes configuration
-|
-+-- stores      # global state stores
-|
-+-- test        # test utilities and mock server
-|
-+-- types       # アプリケーション全体で使用する基本型
-|
-+-- utils       # 共有Utility関数
-```
-
-小規模～中規模なら、components の下にフォルダを切って格納していく形でもよさそう
-
-小規模で済むなら、公式のような構成でも良さそうだし
-
-- [React 公式 Doc ファイル構成](https://ja.reactjs.org/docs/faq-structure.html)
-
-多少大きくなるようなら以下のように components を分けるのが良さそう
-
-- [SPA Component の推しディレクトリ構成について語る](https://zenn.dev/yoshiko/articles/99f8047555f700)
-
-```
-src
-+-- components
-|    +-- page  # 1ページを表すコンポーネント (Next.js 使用時)
-|    |    +-- top
-|    +-- model
-|    |    +-- user  # ステート＆ロジック？機能？
-|    +-- ui
-|    ~    +-- button  # ステートを持たないような表示のみのコンポーネント
-|    +-- functional
-+-- pages  # Next.js使用時 こちらはルーティングのみにする
-```
-
-- ★ [そのファイル、本当に hooks・utils に入れるんですか？React プロジェクトを蝕む「技術駆動パッケージング」](https://qiita.com/honey32/items/dbf3c5a5a71636374567)
-
-```
-src/
-  ├ components/ ... 汎用的なコンポーネント
-  ├ consts/     ... 中央管理したい定数群
-  ├ hooks/      ... 汎用的なカスタムフック
-  ├ features/
-  │   ├ users/  ... ユーザー関連の機能
-  │   └ posts/  ... 投稿関連の機能
-  └ concerns/       ... 全体を横断して使われる、技術者視点で抜き出した個々の機能
-      ├ auth/   ... ページや操作の許可・不許可
-      └ toast/  ... トースト関連
-          ├ Toast.tsx
-          ├ toastContext.tsx
-          ├ ToastProvider.tsx
-          └ useToast.ts
-```
-
-- ※ Toast コンポーネントの Props と、状態管理の型を別々に切り離し、Toast.tsx だけ components/ 以下に移動するのもありかもらしい
-
-規模に合わせて、段階的に？フォルダ構成を変えるのが良い？。以下も大規模になった際は、features フォルダを導入している。
-
-refs:
-
-- [React Folder Structure in 5 Steps [2022]](https://www.robinwieruch.de/react-folder-structure/)
-
-- [Evolution of a React folder structure and why to group by features right away](https://profy.dev/article/react-folder-structure)
-
-その他
-
-- フォルダはパスカルケース
-  > コンポーネントベースの UI ライブラリを使用するフロントエンドでは、コンポーネントを含むフォルダー/ファイルの場合、この名前付け規則が PascalCase に変更されました。
-- pages フォルダは 複数ページ構成なら設けた方が良さそう（pages は Next.js での慣習）
-
-### まとめ
-
-上記の総括。src 直下は以下のように分けていくのが良い？（あくまで個人の見解）
-
-この分け方がベストというわけではない。大事なのは、適切に責務/関心等の分離/分類がしやすい形に小さく分ける。管理と把握と拡張をしやすく保つこと。
-
-以下の図のイメージが素晴らしい。
-
-- ★ [そのファイル、本当に hooks・utils に入れるんですか？React プロジェクトを蝕む「技術駆動パッケージング」：２．責務に従ったパッケージングで解決](https://qiita.com/honey32/items/dbf3c5a5a71636374567#%EF%BC%92%E8%B2%AC%E5%8B%99%E3%81%AB%E5%BE%93%E3%81%A3%E3%81%9F%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E3%81%A7%E8%A7%A3%E6%B1%BA)
-
-features と components/models の明確な境界がイメージしきれてない（実践してみないと恐らく見えてこない）。悩む＆小規模なら統合しても良いかも
-
-```
-src/
-  ├ components/          # 共通コンポーネント（特定のfeatureに関係なくまたいで利用されるようなコンポーネント）
-  |  ├ pages/              # ページコンポーネント ※features内に入れるべきか不明。個人的にはひとまとめにする場所が欲しい
-  |  ├ ui/ or view/        # Viewの部品。見た目に関するコンポーネント
-  |  └ models/             # その他。モデルに関するコンポーネント（domain/entityに近いイメージ）
-  ├ consts/              # (中央管理したい)共通定数群
-  ├ configs/             # グローバル構成、env変数など (constsと一緒でもいいかも)
-  ├ hooks/               # 共通カスタムフック
-  ├ features/            # 機能ベースコンポーネント群（機能毎でフォルダを割った方がいいなら割る）
-  |  └ <FeatureName>/    # ※以下は大規模でなければ分けずにファイル名管理でも十分ならそれで良いと考える
-  |    ├ api/              # APIフック
-  |    ├ components/
-  |    ├ hooks/
-  |    ├ routes/ or pages/
-  |    ├ stores/ or contexts/
-  |    ├ types/
-  |    ├ test/
-  |    ├ utils/
-  |    └ index.js or index.ts
-  ├ concerns/            # 横断的に使用する機能コンポーネント群
-  ├ providers/           # アプリケーション（全体にかかわる）プロバイダー
-  ├ routes/              # ルーティング設定
-  ├ stores/ or contexts/ # グローバルストア (Reactのcontextのみならcontextの方が良いかも？)
-  ├ libs/ or external/   # 外部ライブラリをラップしたもの
-  ├ utils/ or services/  # 共通Utility関数群（functinalでも良いかも？ ここは人/組織で命名がブレる）
-  ├ types/               # 全体で共有する型定義
-  └ test                 # test utilities and mock server
-```
-
 ## ベストプラクティス（コーディング）
 
 ref: [React ベストプラクティスの宝庫！「bulletproof-react」が勉強になりすぎる件](https://zenn.dev/meijin/articles/bulletproof-react-is-best-architecture)
@@ -242,136 +83,6 @@ refs:
 - [React のベストプラクティスとコード削減パターン - パート 2](https://blog.microcms.io/react-best-practices-part2/)
 - [React のベストプラクティスとコード削減パターン - パート 3](https://blog.microcms.io/react-best-practices-part3/)
 
-## storybook
-
-ref: [Vite + React + TypeScript に Vite 用 Storybook を導入する。Storybook は必要だぞ](https://zenn.dev/longbridge/articles/13e65ef71455e4)
-
-### CSF v3.0
-
-refs:
-
-- [Component Story Format 3.0](https://storybook.js.org/blog/component-story-format-3-0/)
-- [Storybook CSF3.0 時代のテストに備える](https://zenn.dev/takepepe/scraps/6f8fb0c9bd6fa9)
-- [TypeScript + Storybook CSF3.0 の書き方とユニットテストへの応用](https://zenn.dev/yukishinonome/articles/6bc6e33d579276)
-
-- 書き方の変更
-
-Template.bind ではなく Object で定義できるようになった
-
-CSF2.0
-
-```typescript
-import { Story, Meta } from '@storybook/react/types-6-0';
-import SimpleFrom, { Props } from './SimpleForm'; // 対象コンポーネント
-export default {
-  title: 'Atoms/SimpleFrom', // CSF3.0では省略可能
-  component: SimpleFrom
-} as Meta<Props>;
-
-const Template: Story<Props> = (args) => <SimpleFrom {...args} />;
-
-export const Index = Template.bind({});
-Index.args = {
-  title: 'お名前フォーム'
-};
-```
-
-CSF3.0
-
-```typescript
-import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import SimpleForm from './SimpleForm'; // 対象コンポーネント
-export default { component: SimpleForm } as ComponentMeta<typeof SimpleForm>;
-
-export const Index: ComponentStoryObj<typeof SimpleForm> = {
-  args: {
-    title: 'お名前フォーム'
-  }
-};
-```
-
-- play 関数によりインタラクティブストーリーが記載可能
-
-```typescript
-import userEvent from '@testing-library/user-event';
-
-export default { component: AccountForm }
-
-export const Empty = {};
-
-export const EmptyError = {
-  ...Empty,
-  play: () => userEvent.click(screen.getByText('Submit'));
-}
-
-export const Filled = {
-  ...Empty,
-  play: () => {
-    userEvent.type(screen.getById('user'), 'shilman@example.com');
-    userEvent.type(screen.getById('password'), 'blahblahblah');
-  }
-}
-
-export const FilledSuccess = {
-  ...Filled,  // 再利用も可能
-  play: () => {
-    Filled.play();
-    EmptyError.play();
-  }
-}
-```
-
-### Interaction test
-
-refs:
-
-- [Storybook Doc: Interaction tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing)
-- [Interaction Testing with Storybook](https://storybook.js.org/blog/interaction-testing-with-storybook/)
-- [Storybook 単体でインタラクションテストを実施する](https://zenn.dev/azukiazusa/articles/storybook-interaction-testing)
-
-以下を導入すれば、再生と巻き戻しも可能
-
-```
-npm i -D @storybook/addon-interactions
-```
-
-.storybook/main.js
-
-```javascript
-  addons: [
-    // 他のアドオン,
-    '@storybook/addon-interactions'
-  ],
-  features: {
-    interactionsDebugger: true
-  },
-```
-
-- play で実行
-- useEvent で コンポーネントとの相互作用をシミュレート
-- Jest で Dom Structure を検証
-
-```
-// テスト実行
-npm run test-storybook
-```
-
-### Visual Testing (Github Action)
-
-ref: https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/
-
-```
-npm i -D chromatic
-// access to https://www.chromatic.com/start
-npx chromatic --project-token=1b98b5ba4c9e
-```
-
-refs:
-
-- [Chromatic と storybook で UI のテストを自動化してみた](https://zenn.dev/kyo9bo/articles/9909ba89c42a77)
-- [storybook の VRT で Chromatic を試す](https://zenn.dev/wintyo/articles/6bea3e999ad537)
-- [Chromatic のプレビューリンクを自動で PR 上にコメントする](https://zenn.dev/matken/articles/chromatic-preview-comment)
-
 ## React 諸々
 
 ※ドキュメント見ろ
@@ -434,68 +145,84 @@ function lazyImport<T extends React.ComponentType<any>, I extends { [K2 in K]: T
 const { Home } = lazyImport(() => import('./Home.component.tsx'), 'Home');
 ```
 
-以下 router と組み合わせて使う
+router と組み合わせて使う
 
-### React Router
+### ref/useRef/forwardRef
 
-```
-npm i react-router-dom
-npm i -D @types/react-router-dom
-```
+- ref：コンポーネントの描画結果である DOM ノードへの参照を保持するオブジェクト（変更しても再レンダリングされない）
+- useRef： ref オブジェクトを生成
+- forwardRef：子コンポーネントに ref オブジェクトを渡すための機能
 
-[React Router Doc: Quick Start](https://reactrouter.com/docs/en/v6/getting-started/overview)
+ref オブジェクトは current というプロパティを持ち、current はミュータブル（React の思想（宣言的 UI）には沿わないため「Don’t Overuse Refs」使いすぎ NG）
 
-Router の種類（一部のみ。ドキュメント見るべし）
+Hooks 時代の Ref の用途は 2 つ
 
-ref: [ルーティングライブラリ、React Router(v5)入門](https://zenn.dev/h_yoshikawa0724/articles/2020-09-22-react-router)
+- DOM へのアクセス
+- ミュータブルな値を、レンダリングから独立して管理する
 
-- BrowserRouter：HTML の History API（pushState、replaceState、popstate イベント）を使用して UI を URL と同期させるルーター
-- HashRouter：URL のハッシュ部分（window.location.hash）を使用して UI を URL と同期させるルーター
-- StaticRouter：location を変更しないルーター
-- MemoryRouter
-  - URL の履歴をメモリに保持するルーター（アドレスバーの読み取りまたは書き込みは行わない）
-  - ブラウザーで URL を変更しないようにするユースケースの時は出番。ルートの履歴はユーザに公開されない
-    - ref:[React-Router — MemoryRouter; a how to guide](https://mrsamczynski.medium.com/react-router-memoryrouter-a-how-to-guide-a496318bf981)
+ユースケース：
 
-以下のように、コンポーネント化も可能（v6 ～？）
-
-ref: https://github.com/alan2207/bulletproof-react/tree/master/src/routes
+- アクセシビリティの向上を実現する手段（実例：オートフォーカス、アニメーションの発火等）
+- ※ とある DOM 要素から別の DOM 要素に対しての操作を行うことができる
 
 ```typescript
-export const publicRoutes = [
-  {
-    path: '/auth/*',
-    element: <AuthRoutes />
-  }
-];
+const ref = useRef(null)
+//例: ref.currentで <input type="text" /> を参照
+<input ref={ref} type="text" />
+console.log(ref.current); // <input type="text" />
+```
 
-export const protectedRoutes = [
-  {
-    path: '/app',
-    element: <App />,
-    children: [
-      { path: '/discussions/*', element: <DiscussionsRoutes /> },
-      { path: '/users', element: <Users /> },
-      { path: '/profile', element: <Profile /> },
-      { path: '/', element: <Dashboard /> },
-      { path: '*', element: <Navigate to='.' /> }
-    ]
-  }
-];
-
-export const AppRoutes = () => {
-  const auth = useAuth();
-  const commonRoutes = [{ path: '/', element: <Landing /> }];
-  const routes = auth.user ? protectedRoutes : publicRoutes;
-  const element = useRoutes([...routes, ...commonRoutes]);
-  return <>{element}</>;
+```typescript
+// ボタンを押すと input 要素がフォーカスされる
+const App = () => {
+  const ref = useRef(null);
+  const handleClick = () => {
+    ref.current.focus();
+    console.log('ref.current:', ref.current);
+    //ref.current: <input type="text">
+  };
+  return (
+    <>
+      <input ref={ref} type='text' />
+      <button onClick={handleClick}>入力エリアをフォーカスする</button>
+    </>
+  );
 };
 ```
 
-### React Query
+```typescript
+// forwardRef の使用例
+// ボタンを押すと input 要素がフォーカスされる
+const CustomInput = (props, ref) => {
+  return <input type='text' {...props} ref={ref} />;
+};
 
-- [REST API なら React Query がファーストチョイス](https://zenn.dev/brachio_takumi/articles/20210226-react-query)
-- [React Query の Suspese Mode を使ってみた! [TypeScript]](https://re-engines.com/2022/04/11/react-query-suspense/)
+const WrappedCustomInput = forwardRef(CustomInput);
+
+export const App = () => {
+  const ref = useRef();
+
+  const onClick = () => {
+    ref.current.focus();
+  };
+
+  return (
+    <>
+      <WrappedCustomInput ref={ref} />
+      <button type='button' onClick={onClick}>
+        focus
+      </button>
+    </>
+  );
+};
+```
+
+※React Hook Form は、Ref を上手に活用することで、ハイパフォーマンスなフォームの実装を可能にしたライブラリ → 多要素のフォーカス制御の参考になる
+
+ref:
+
+- [React の ref, useRef, forwardRef の基本的な知識](https://qiita.com/ryosuketter/items/1ebf2d68ba3317db53a9)
+- [React の Ref とフォーカス管理におけるベストプラクティス](https://qiita.com/chelproc/items/de83a6f2959490109b49)
 
 ### State 戦略
 

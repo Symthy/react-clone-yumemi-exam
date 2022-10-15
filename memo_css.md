@@ -50,42 +50,66 @@ ref:
 結論（Vite を使用する前提で）
 
 - 小規模で動的に style 変える必要もないなら CSS Modules でも十分
-- 中～大規模で、ビューとアプリケーションロジックを分けてコンポーネントを作ることを徹底するなら CSS-in-JS の方が良いように思う（CSS-in-JS の方が対応の幅が効くというのはありそうなので、先を見据えて CSS-in-JS 採用はありと思う）
+- ビューとアプリケーションロジックを分けてコンポーネントを作ることを徹底するなら CSS-in-JS でも良いように思う（CSS-in-JS の方が対応の幅が効くというのはありそうなので、規模大きくなっていくのが見えているなら先を見据えて CSS-in-JS 採用はありと思う）
 - CSS-is-JS で個人的に使用するなら emotion (ただし、求められるパフォーマンスがシビアでなければ。)
 
-## emotion
+## Styled Component
 
-参考:
+ref: [Styled Components を無闇に使わないで](https://zenn.dev/yhase_rqp/articles/db63567117c110)
 
-- [Emotion Doc: Best Practices](https://emotion.sh/docs/best-practices)
-- [@emotion/react でコンポーネントの外部からスタイルを受け取る方法](https://zenn.dev/hatchinee/articles/a235edb225fb39)
-- [CSS in JS ライブラリ「emotion」のすすめ](https://zenn.dev/itomise/articles/e6386441cac697)
-- [Emotion を使いこなす](https://qiita.com/282Haniwa/items/7248bed02a1b5b66579f)
-- [Emotion はいいぞ](https://qiita.com/282Haniwa/items/93edc81a884add528593)
-- [【お遊び？】Emotion で Utility First してみた](https://qiita.com/honey32/items/c7d4117bbc46c15a273b)
-  - 以下のような指定もできるし、配列指定で合成も可能 ⇒ 一部 style を共通化して使用することも可能
+Styled Components は簡単すぎて、初歩の構造を隠蔽する
 
-```javascript
-<div
-  css={[
-    css`color: white;`,
-    // 1) テーマを引数に取る指定も含められる
-    (theme) => css`background-color: ${theme.colors.primary};`,
-    // 2) && etc. による条件付き指定も可
-    selected && css`background-color: red;`,
-  ]}
->
+```typescript
+export const Button = styled.button<Props>`
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;
+  ${colorStyle}
+`;
+
+Button.displayName = 'Button';
 ```
 
-## theme の モードチェンジ
+実態は以下
 
-emotion での実現方法
+```typescript
+// React.forwardRefでラップする構文を使い、refを受け取れるようにする
+export const Button = React.forwardRef<Ref, Props>((props, ref) => {
+  // classNameを追加でマージできるようにする (1)
+  const { color, className, ...rest } = props;
 
-- [Implementing dark mode in next.js with emotion - Topcoder](https://www.topcoder.com/thrive/articles/implementing-dark-mode-in-next-js-with-emotion)
-- [Adding Dark Mode to Your React App with Emotion CSS-in-JS](https://levelup.gitconnected.com/adding-dark-mode-to-your-react-app-with-emotion-css-in-js-fc5c0f926838)
-- [[React + Typescript] emotion の Theming 機能を使って複数の Theme 切り替えを実装してみた](https://dev.classmethod.jp/articles/react-typescript-emotion-theming/)
-- [emotion 公式 Doc：複数 theme サポートしないならば theme は使用すべきでない](https://emotion.sh/docs/best-practices#define-colors-and-other-style-constants-as-javascript-variables)
+  return (
+    <button
+      ref={ref}
+      // classNameを追加でマージできるようにする (2)
+      className={cx(styles.root, styles[`root__color_${color}`], className)}
+      // button要素が持つpropsでclassName以外のものは、そのまま受け流す
+      {...rest}
+    />
+  );
+});
+```
 
-※ sass で実現する方法もある。ちょっと面倒そう
+Styled Components の使用は無意識的に ref の多用に繋がるため実はあまりよくない？カプセル化されているため、実害はそうないと思われるが…
 
-[React で CSS variables でダークモードとライトモードを手軽に切り替える](https://zenn.dev/bom_shibuya/articles/f0a6d7daddfa6f)
+styled-components ライブラリの
+
+- メリット
+  - CSS の特異性の問題を解決（クラス名の衝突）
+  - コンポーネント内に CSS を記述できる
+    - コンポーネントのすべての機能を 1 つのファイルに格納できる
+  - すぐに使えるテーマ設定をサポート
+    - ダーク テーマやその他のテーマをアプリケーションに追加するのは難しく時間がかかるが、容易に実現できる
+- デメリット
+  - JS で CSS を書くと、将来的に 2 つを分離することが難しくなり、保守性が大幅に低下する（例：JavaScript フレームワークを切り替える場合、ほとんどのコードベースを書き直す必要がでてくる）※CSS モジュールや emotion のようなライブラリを使用すれば将来性は高まる
+  - 読みにくい場合がある
+    - Styled Component と React Component を区別することは、特にアトミックデザインシステムの外では難しい場合がある
+    - Styled Component のみをラッパーとして使用し、その中の要素にセマンティック HTML タグを使用することで、この問題を解決はできる。以下のように別ファイルに分けるとより明確にできる
+
+```typescript
+import * as Styled from './styled';
+// use styled.components
+<styled.Main>// code</styled.Main>;
+```
+
+ref: [The Pros and Cons of Using Styled Components in React](https://www.makeuseof.com/styled-components-react-pros-cons/)
