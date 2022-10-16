@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 
 type ButtonProps = {
   label: string;
-  onClick: () => void;
+  type?: 'submit' | 'reset' | 'button';
   prefix?: ReactNode;
   suffix?: ReactNode;
+  additionalStyles?: SerializedStyles;
 };
 
 const styles = {
@@ -19,7 +20,6 @@ const styles = {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    //flex-direction: 'row';
 
     padding: ${2 / 16}rem ${16 / 16}rem;
     border-radius: ${18 / 16}rem;
@@ -31,10 +31,13 @@ const styles = {
   `
 };
 
-export const Button = ({ label, onClick, prefix, suffix }: ButtonProps) => (
-  <button css={styles.btn} type='button' onClick={onClick}>
+export const Button = ({ label, type = 'button', prefix, suffix, additionalStyles }: ButtonProps) => (
+  // eslint-disable-next-line react/button-has-type
+  <button css={[styles.btn, additionalStyles]} type={type}>
     {prefix}
     <span css={styles.label}>{label}</span>
     {suffix}
   </button>
 );
+
+// ref: https://github.com/jsx-eslint/eslint-plugin-react/issues/1555

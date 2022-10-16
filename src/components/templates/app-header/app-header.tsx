@@ -6,7 +6,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '4rem',
+    height: '5rem',
     border: 'solid',
     borderWidth: '2px 0'
   }),
@@ -26,7 +26,7 @@ const styles = {
 };
 
 export const AppHeader = () => (
-  <div css={styles.container}>
+  <header css={styles.container}>
     <p css={styles.title}>都道府県別 総人口推移グラフ</p>
     <div css={styles.links}>
       <div css={styles.linkWrpper}>
@@ -44,5 +44,5 @@ export const AppHeader = () => (
         />
       </div>
     </div>
-  </div>
+  </header>
 );

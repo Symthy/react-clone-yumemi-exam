@@ -7,23 +7,20 @@ export default { component: Button } as ComponentMeta<typeof Button>;
 
 export const Default: ComponentStoryObj<typeof Button> = {
   args: {
-    label: 'Button',
-    onClick: () => {}
+    label: 'Button'
   }
 };
 
 export const SpecifiedPrefix: ComponentStoryObj<typeof Button> = {
   args: {
-    label: 'Button',
-    onClick: () => {},
+    label: 'Specifed Prefix Button',
     prefix: <TfiReload />
   }
 };
 
 export const SpecifiedSuffix: ComponentStoryObj<typeof Button> = {
   args: {
-    label: 'Button',
-    onClick: () => {},
+    label: 'Specified Suffix Button',
     suffix: <BiLogIn size={`${22 / 16}rem`} />
   }
 };
