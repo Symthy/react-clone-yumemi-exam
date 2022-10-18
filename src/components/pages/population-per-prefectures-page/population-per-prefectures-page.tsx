@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { UseQueryResult } from '@tanstack/react-query';
-import { PrefectureResponeseResult } from 'src/api/resasApiClient';
 import { PopulationGraph } from 'src/components/models/population-graph/population-graph';
 import { PrefecturesSelector } from 'src/components/models/prefectures-selector/prefectures-selector';
 import { Prefecture } from 'src/components/models/prefectures-selector/types';
 import { usePrefecturesQuery } from 'src/components/models/prefectures-selector/usePrefecturesQuery';
+import { PrefectureResponeseResult } from 'src/types';
 
 export const PopulationPerPrefecturesPage = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
