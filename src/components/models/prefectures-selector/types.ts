@@ -1,4 +1,4 @@
-import { PrefectureResponeseResult } from 'src/api/resasApiClient';
+import { PrefectureResponeseResult } from 'src/types';
 
 export type Prefecture = PrefectureResponeseResult & {
   isSelected: boolean;

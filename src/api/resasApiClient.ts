@@ -1,3 +1,4 @@
+import { PrefectureResponeseResult } from 'src/types';
 import { ApiClient, AxiosApiClient } from './ApiClient';
 import { RESAS_API_ENDPOINT, RESAS_API_POPULATIONS_PATH, RESAS_API_PREFECTURES_PATH } from './constants';
 import { resolveApiError } from './error';
@@ -5,11 +6,6 @@ import { ErrorResponseBody } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 const isPrefecturesApiResponse = (res: any): res is PrefecturesApiResponse => res.result !== undefined;
-
-export type PrefectureResponeseResult = {
-  prefCode: number;
-  prefName: string;
-};
 
 type PrefecturesApiResponse = {
   result: PrefectureResponeseResult[];

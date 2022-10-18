@@ -1,7 +1,8 @@
-import { convertToPlotData } from './multi-line-chart';
+import { convertToPlotData } from './converter';
+import { MultiLineChartInput, RechartPlotData } from './types';
 
 test('convert to plot data', () => {
-  const testInput = {
+  const testInput: MultiLineChartInput = {
     '10s': {
       data1: 110,
       data2: 210,
@@ -19,7 +20,7 @@ test('convert to plot data', () => {
     }
   };
 
-  const expected = [
+  const expected: RechartPlotData[] = [
     {
       name: '10s',
       data1: 110,
