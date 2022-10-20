@@ -66,7 +66,7 @@ export const LoginPage = () => {
           <label htmlFor='apikey'>RESAS API キーを入力してください</label>
           <ExternalTextLink label='RESAS API キー の取得はこちらから' url={RESAS_REGISTER_PAGE_URL} fontSize={14} />
           <InputTextField placeholder='API キー' value={apiKey} onChange={onInputApiKey} />
-          <Button label='利用開始' suffix={<BiLogIn size={`${22 / 16}rem`} />} />
+          <Button label='利用開始' type='submit' suffix={<BiLogIn size={`${22 / 16}rem`} />} />
         </form>
       </div>
     </div>

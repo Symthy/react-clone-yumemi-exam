@@ -1,4 +1,4 @@
-import { CheckBox } from 'src/components/elements/checkbox';
+import { CheckBox } from 'src/components/elements/checkbox/index';
 import { SelectableItem } from './types';
 
 type SelectionAreaProps = {
@@ -15,7 +15,7 @@ export const SelectionArea = ({ title, selectableItems, updateSelectedState }: S
     ) : (
       <div>
         {selectableItems.map((item) => (
-          <CheckBox id={item.id} label={item.label} onToggleSelectedState={updateSelectedState} />
+          <CheckBox id={item.id} key={item.id} label={item.label} onToggleSelectedState={updateSelectedState} />
         ))}
       </div>
     )}

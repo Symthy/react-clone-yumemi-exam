@@ -5,7 +5,7 @@ type ExternalTextLinkProps = {
 };
 
 export const ExternalTextLink = ({ label, url, fontSize }: ExternalTextLinkProps) => {
-  const fontStyle = fontSize ? { 'font-size': `${fontSize / 16}rem` } : {};
+  const fontStyle = fontSize ? { fontSize: `${fontSize / 16}rem` } : {};
   const linkStyle = {
     cursor: 'pointer',
     ...fontStyle

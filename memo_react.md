@@ -313,3 +313,11 @@ Headless Component とは一般的にはスタイルを持たない Component
 - [React Spectrum (Stately + Aria)](https://react-spectrum.adobe.com/index.html)
 
 ref: [Headless Component 開発をはじめよう (Headless UI + React Spectrum)](https://zenn.dev/matamatanot/articles/7572dccafbc96d)
+
+## エラー
+
+> Each child in a list should have a unique "key" prop.
+
+コンポーネント内ではなく、コンポーネント自体に key 追加が必要
+
+https://dev.classmethod.jp/articles/avoiding-warningeach-child-in-a-list-should-have-a-unique-key-prop-in-react-apps-is-called-and-not-on-the-side-do-it-on-the-caller/

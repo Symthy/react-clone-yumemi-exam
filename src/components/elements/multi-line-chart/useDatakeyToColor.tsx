@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { DatakeyToColor, MultiLineChartInput } from './types';
 
 const generateRandRange = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1) + min);
@@ -20,12 +20,10 @@ const removeNotExistDataKeys = (dataKeyToColor: DatakeyToColor, inputKeys: strin
 export const useDatakeyToColor = (input: MultiLineChartInput): { dataKeyToColor: DatakeyToColor } => {
   const [dataKeyToColor, setDataKeyToColor] = useState({});
 
-  const datakeys = extractToDataKeys(input);
-  const joinedInputKeys = datakeys.sort().join('');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const inputKeys = useMemo(() => extractToDataKeys(input), [joinedInputKeys]);
+  const inputKeys = extractToDataKeys(input);
+  const joinedInputKeys = inputKeys.sort().join('');
 
-  useEffect(() => {
+  useMemo(() => {
     setDataKeyToColor((prevDataKeyToColor) => {
       const remainingKeyToColor: DatakeyToColor = removeNotExistDataKeys(prevDataKeyToColor, inputKeys);
       const newKeyToColor: DatakeyToColor = inputKeys
@@ -37,12 +35,13 @@ export const useDatakeyToColor = (input: MultiLineChartInput): { dataKeyToColor:
           };
           return newColors;
         }, {});
-      const updatedKeyToColor: DatakeyToColor = {
+      return {
         ...remainingKeyToColor,
         ...newKeyToColor
       };
-      return updatedKeyToColor;
     });
-  }, [inputKeys]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [joinedInputKeys]);
+
   return { dataKeyToColor };
 };
