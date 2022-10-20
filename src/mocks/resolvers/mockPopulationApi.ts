@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockedRequest, ResponseResolver, restContext } from 'msw';
 
-const mockPopulations = {
+export const mockPopulations = {
   message: null,
   result: {
     boundaryYear: 2015,
@@ -297,9 +297,4 @@ const mockPopulations = {
 };
 
 export const mockPopulationsApi: ResponseResolver<MockedRequest, typeof restContext> = (req, res, ctx) =>
-  res(
-    ctx.status(200),
-    ctx.json({
-      // TODO
-    })
-  );
+  res(ctx.status(200), ctx.json(mockPopulations));

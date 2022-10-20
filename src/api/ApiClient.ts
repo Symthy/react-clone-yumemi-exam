@@ -46,10 +46,14 @@ export class AxiosApiClient implements ApiClient {
     const response = this.axios.get<T>(url, params);
     return response
       .then((res: AxiosResponse<T>) => res.data)
-      .catch((err: AxiosError<ErrorResponseBody>) => {
-        const message = err.response?.data?.message || err.message;
-        const status = err.response?.status.toString() || err.status;
-        return Promise.reject(resolveApiError(message, status));
-      });
+      .catch((err: AxiosError<ErrorResponseBody>) =>
+        Promise.reject(
+          resolveApiError({
+            ...err,
+            message: err.response?.data?.message || err.message,
+            statusCode: err.response?.status.toString() || err.status
+          })
+        )
+      );
   }
 }

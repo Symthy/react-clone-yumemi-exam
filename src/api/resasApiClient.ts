@@ -1,15 +1,20 @@
-import { PrefectureResponeseResult } from 'src/types';
+import { PopulationsResponseResult, PrefectureResponeseResult } from 'src/types';
 import { ApiClient, AxiosApiClient } from './ApiClient';
 import { RESAS_API_ENDPOINT, RESAS_API_POPULATIONS_PATH, RESAS_API_PREFECTURES_PATH } from './constants';
 import { resolveApiError } from './error';
 import { ErrorResponseBody } from './types';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-const isPrefecturesApiResponse = (res: any): res is PrefecturesApiResponse => res.result !== undefined;
-
 type PrefecturesApiResponse = {
   result: PrefectureResponeseResult[];
 };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+const isPrefecturesApiResponse = (res: any): res is PrefecturesApiResponse => res.result !== undefined;
+
+type PopulationesApiResponse = {
+  result: PopulationsResponseResult[];
+};
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+const isPopulationsApiResponse = (res: any): res is PopulationesApiResponse => res.result !== undefined;
 
 export class ResasApiClient {
   private readonly apiKey: string;
@@ -51,15 +56,19 @@ export class ResasApiClient {
     if (isPrefecturesApiResponse(res)) {
       return res.result;
     }
-    throw resolveApiError(res.message || '', res.statusCode);
+    throw resolveApiError(res);
   }
 
-  public async getPopulations(prefCode: string, cityCode = '-') {
+  public async getPopulations(prefCode: string, cityCode = '-'): Promise<PopulationsResponseResult[]> {
     // specified '-' to cityCode when select all city
-    return this.apiClient.get(RESAS_API_POPULATIONS_PATH, {
+    const res = await this.apiClient.get<PopulationesApiResponse | ErrorResponseBody>(RESAS_API_POPULATIONS_PATH, {
       prefCode,
       cityCode
     });
+    if (isPopulationsApiResponse(res)) {
+      return res.result;
+    }
     // Todo: error case
+    throw resolveApiError(res);
   }
 }

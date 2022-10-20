@@ -1,7 +1,10 @@
+import { ErrorResponseBody } from '../types';
 import { ApiClientError } from './ApiClientError';
 import { ApiServerError } from './ApiServerError';
 
-export const resolveApiError = (message: string, status?: string): Error => {
+export const resolveApiError = (res: ErrorResponseBody): Error => {
+  const message = res.message || '';
+  const status = res.statusCode;
   if (!status) {
     return new Error(`unexpected api error${message !== '' ? ` (detail: ${message})` : ''}`);
   }
