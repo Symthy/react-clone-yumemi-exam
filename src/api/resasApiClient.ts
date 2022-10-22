@@ -68,7 +68,6 @@ export class ResasApiClient {
     if (isPopulationsApiResponse(res)) {
       return res.result;
     }
-    // Todo: error case
     throw resolveApiError(res);
   }
 }

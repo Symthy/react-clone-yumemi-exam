@@ -67,17 +67,9 @@ const testPerfs: Prefecture[] = [
   }
 ];
 
-const mockUpdateSelectedState = (id: string, isSelected: boolean) => {
-  const index = testPerfs.findIndex((pref) => String(pref.prefCode) === id);
-  if (index === -1) {
-    return;
-  }
-  testPerfs[index].isSelected = isSelected;
-};
-
 export const Index: ComponentStoryObj<typeof PrefecturesSelector> = {
   args: {
     prefectures: testPerfs,
-    updateSelectedState: mockUpdateSelectedState
+    setPrefectures: () => {}
   }
 };

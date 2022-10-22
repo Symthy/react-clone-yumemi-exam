@@ -4,10 +4,14 @@ import { SelectableItem } from './types';
 type SelectionAreaProps = {
   title: string;
   selectableItems: SelectableItem[];
-  updateSelectedState: (id: string, isSelected: boolean) => void;
+  updateSelectedPrefecture: (id: string, isSelected: boolean) => void;
 };
 
-export const SelectionArea = ({ title, selectableItems, updateSelectedState }: SelectionAreaProps) => (
+export const SelectionArea = ({
+  title,
+  selectableItems,
+  updateSelectedPrefecture: updateSelectedState
+}: SelectionAreaProps) => (
   <>
     <p>{title}</p>
     {selectableItems.length === 0 ? (

@@ -7,9 +7,9 @@ type CheckBoxProps = {
 };
 
 export const CheckBox = ({ id, label, onToggleSelectedState }: CheckBoxProps) => {
-  const [isChecked, setIsCheckedd] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const onChange = () => {
-    setIsCheckedd(!isChecked);
+    setIsChecked(!isChecked);
     onToggleSelectedState(id, !isChecked);
   };
   const checkboxID = `checkbox-${id}`;
