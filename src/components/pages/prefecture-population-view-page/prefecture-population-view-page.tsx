@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { PopulationGraph } from 'src/components/models/population-graph/population-graph';
+import { PrefecturePopulationGraphMemo as PrefecturePopulationGraph } from 'src/components/models/prefecture-population-graph/prefecture-population-graph';
 import { PrefecturesSelector } from 'src/components/models/prefectures-selector/prefectures-selector';
-import { Prefecture } from 'src/components/models/prefectures-selector/types';
+import { Prefecture } from 'src/types';
 
 export const PopulationPerPrefecturesPage = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
@@ -12,7 +12,7 @@ export const PopulationPerPrefecturesPage = () => {
         prefectures={prefectures}
         setPrefectures={useCallback((prefs: Prefecture[]) => setPrefectures(prefs), [])}
       />
-      <PopulationGraph />
+      <PrefecturePopulationGraph prefectures={prefectures.filter((pref) => pref.isSelected)} />
     </>
   );
 };

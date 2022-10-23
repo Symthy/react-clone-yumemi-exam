@@ -7,9 +7,11 @@ import { PrefectureResponeseResult } from 'src/types';
 
 export const usePrefecturesQuery = () => {
   const { apiClient } = useResasApiClient();
-  return useQuery<PrefectureResponeseResult[], Error | ApiClientError>(
+  const queryResult = useQuery<PrefectureResponeseResult[], Error | ApiClientError>(
     [PREFECTURES_QUERY_KEY],
     async () => apiClient.getPrefectures(),
     errorBoundaryOption
   );
+  const { isLoading, data: prefectureResponseResult } = queryResult;
+  return { isLoading, prefectureResponseResult };
 };

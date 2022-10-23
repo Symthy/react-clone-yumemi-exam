@@ -1,4 +1,4 @@
-import { Prefecture } from './types';
+import { Prefecture } from 'src/types';
 
 export const useUpdateSelectedPrefecture =
   (prefectures: Prefecture[], setPrefectures: (prefs: Prefecture[]) => void) =>

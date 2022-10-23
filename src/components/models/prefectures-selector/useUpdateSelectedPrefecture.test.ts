@@ -1,4 +1,4 @@
-import { Prefecture } from './types';
+import { Prefecture } from 'src/types';
 import { useUpdateSelectedPrefecture } from './useUpdateSelectedPrefecture';
 
 describe('useUpdateSelectedPrefecture test', () => {

@@ -1,7 +1,5 @@
-import { UseQueryResult } from '@tanstack/react-query';
 import { SelectionArea } from 'src/components/templates/selection-area/selection-area';
-import { PrefectureResponeseResult } from 'src/types';
-import { Prefecture } from './types';
+import { Prefecture } from 'src/types';
 import { useConvertToSelectableItems } from './useConvertToSelectableItems';
 import { usePrefecturesQuery } from './usePrefecturesQuery';
 import { useSavePrefectures } from './useSavePrefectures';
@@ -16,13 +14,8 @@ export const PrefecturesSelector = ({ prefectures, setPrefectures }: Prefectures
   const convertToSelectableItems = useConvertToSelectableItems();
   const updateSelectedPrefecture = useUpdateSelectedPrefecture(prefectures, setPrefectures);
 
-  const {
-    data: prefecturesResponse,
-    isLoading,
-    isError,
-    error
-  }: UseQueryResult<PrefectureResponeseResult[], Error> = usePrefecturesQuery();
-  useSavePrefectures(prefecturesResponse, setPrefectures);
+  const { isLoading, prefectureResponseResult } = usePrefecturesQuery();
+  useSavePrefectures(prefectureResponseResult, setPrefectures);
 
   // Todo
   if (isLoading) {

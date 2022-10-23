@@ -1,6 +1,6 @@
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { MultiLineChartInput } from 'src/types';
 import { convertToPlotData } from './converter';
-import { MultiLineChartInput } from './types';
 import { useDatakeyToColor } from './useDatakeyToColor';
 
 const NameKey = 'name';
@@ -10,7 +10,7 @@ type MultiLineChartProps = {
 };
 
 export const MultiLineChart = ({ input }: MultiLineChartProps) => {
-  const { dataKeyToColor } = useDatakeyToColor(input);
+  const { dataKeyToColor: xLabelToColor } = useDatakeyToColor(input);
 
   return (
     <ResponsiveContainer width='100%' height={500}>
@@ -20,8 +20,14 @@ export const MultiLineChart = ({ input }: MultiLineChartProps) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        {Object.keys(dataKeyToColor).map((datakey) => (
-          <Line key={datakey} connectNulls type='monotone' dataKey={datakey} stroke={dataKeyToColor[datakey]} />
+        {Object.keys(xLabelToColor).map((datakey, index) => (
+          <Line
+            key={`line-${String(index)}`}
+            connectNulls
+            type='monotone'
+            dataKey={datakey}
+            stroke={xLabelToColor[datakey]}
+          />
         ))}
       </LineChart>
     </ResponsiveContainer>

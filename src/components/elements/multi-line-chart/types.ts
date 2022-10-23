@@ -1,5 +1,3 @@
-export type MultiLineChartInput = Record<string, Record<string, number>>;
-
 export type RechartPlotData =
   | {
       name: string;

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { DatakeyToColor, MultiLineChartInput } from './types';
+import { MultiLineChartInput } from 'src/types';
+import { DatakeyToColor } from './types';
 
 const generateRandRange = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1) + min);
 const generateColorHexStr = () => generateRandRange(80, 255).toString(16);

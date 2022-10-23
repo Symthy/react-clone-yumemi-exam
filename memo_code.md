@@ -27,3 +27,7 @@ const ParentComp = () => {
   return <ChildComp value={inputValue} onChange={(e) => handleChange(e)} />;
 };
 ```
+
+## 型付け
+
+[TypeScript: string | undefined な配列から undefined を取り除く処理の型付けをしっかりする方法](https://qiita.com/suin/items/cda9af4f4f1c53c05c6f)

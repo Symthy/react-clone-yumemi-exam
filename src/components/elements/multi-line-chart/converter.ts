@@ -1,4 +1,5 @@
-import { MultiLineChartInput, RechartPlotData } from './types';
+import { MultiLineChartInput } from 'src/types';
+import { RechartPlotData } from './types';
 
 export const convertToPlotData = (input: MultiLineChartInput): RechartPlotData[] => {
   const dataset: RechartPlotData[] = Object.keys(input).map((key) => {

@@ -1,5 +1,6 @@
+import { MultiLineChartInput } from 'src/types';
 import { convertToPlotData } from './converter';
-import { MultiLineChartInput, RechartPlotData } from './types';
+import { RechartPlotData } from './types';
 
 test('convert to plot data', () => {
   const testInput: MultiLineChartInput = {

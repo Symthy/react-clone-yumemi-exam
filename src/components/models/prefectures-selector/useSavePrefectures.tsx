@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { PrefectureResponeseResult } from 'src/types';
-import { Prefecture } from './types';
+import { PrefectureResponeseResult, Prefecture } from 'src/types';
 
 export const useSavePrefectures = (
   prefecturesResponse: PrefectureResponeseResult[] | undefined,

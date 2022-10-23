@@ -1,4 +1,4 @@
-import { PopulationsResponseResult, PrefectureResponeseResult } from 'src/types';
+import { PopulationResponseResult, PrefectureResponeseResult } from 'src/types';
 import { ApiClient, AxiosApiClient } from './ApiClient';
 import { RESAS_API_ENDPOINT, RESAS_API_POPULATIONS_PATH, RESAS_API_PREFECTURES_PATH } from './constants';
 import { resolveApiError } from './error';
@@ -11,7 +11,7 @@ type PrefecturesApiResponse = {
 const isPrefecturesApiResponse = (res: any): res is PrefecturesApiResponse => res.result !== undefined;
 
 type PopulationesApiResponse = {
-  result: PopulationsResponseResult[];
+  result: PopulationResponseResult;
 };
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 const isPopulationsApiResponse = (res: any): res is PopulationesApiResponse => res.result !== undefined;
@@ -59,7 +59,7 @@ export class ResasApiClient {
     throw resolveApiError(res);
   }
 
-  public async getPopulations(prefCode: string, cityCode = '-'): Promise<PopulationsResponseResult[]> {
+  public async getPopulations(prefCode: string, cityCode = '-'): Promise<PopulationResponseResult> {
     // specified '-' to cityCode when select all city
     const res = await this.apiClient.get<PopulationesApiResponse | ErrorResponseBody>(RESAS_API_POPULATIONS_PATH, {
       prefCode,

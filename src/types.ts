@@ -1,17 +1,32 @@
+export type MultiLineChartInput = Record<string, Record<string, number>>;
+/* example
+  { xAxisLabel: { usageGuide: value } }
+*/
+
 export type PrefectureResponeseResult = {
   prefCode: number;
   prefName: string;
 };
 
-export type PopulationsResponseResult = {
+export type Prefecture = PrefectureResponeseResult & {
+  isSelected: boolean;
+};
+
+export type PopulationResponseResult = {
   boundaryYear: number;
-  data: PopulationDataSet[];
+  data: PopulationsPerLabel[];
 };
+
 export type PopulationDataSet = {
-  label: string;
-  data: PopulationData[];
+  boundaryYear: number;
+  labelToPopulations: Map<string, Population[]>; // key: label
 };
-export type PopulationData = {
+
+export type PopulationsPerLabel = {
+  label: string;
+  data: Population[];
+};
+export type Population = {
   year: number;
   value: number;
 };

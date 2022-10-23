@@ -3,7 +3,8 @@
  */
 
 import { renderHook } from '@testing-library/react';
-import { DatakeyToColor, MultiLineChartInput } from './types';
+import { MultiLineChartInput } from 'src/types';
+import { DatakeyToColor } from './types';
 import { useDatakeyToColor } from './useDatakeyToColor';
 import * as useDatakeyToColorModule from './useDatakeyToColor';
 

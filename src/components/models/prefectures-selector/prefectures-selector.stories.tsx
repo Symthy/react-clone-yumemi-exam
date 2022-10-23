@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Prefecture } from 'src/types';
 import { PrefecturesSelector } from './prefectures-selector';
-import { Prefecture } from './types';
 
 export default { component: PrefecturesSelector } as ComponentMeta<typeof PrefecturesSelector>;
 
@@ -67,9 +68,19 @@ const testPerfs: Prefecture[] = [
   }
 ];
 
-export const Index: ComponentStoryObj<typeof PrefecturesSelector> = {
+export const Default: ComponentStoryObj<typeof PrefecturesSelector> = {
   args: {
     prefectures: testPerfs,
     setPrefectures: () => {}
-  }
+  },
+  decorators: [
+    (Story) => {
+      const queryClient = new QueryClient();
+      return (
+        <QueryClientProvider client={queryClient}>
+          <Story />
+        </QueryClientProvider>
+      );
+    }
+  ]
 };

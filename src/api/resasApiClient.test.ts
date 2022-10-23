@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { forbiddenBody } from 'src/mocks/resolvers/errorForbidden';
-import { mockPopulations } from 'src/mocks/resolvers/mockPopulationApi';
+import { mockDefaultPopulations } from 'src/mocks/resolvers/mockPopulationApi';
 import { mockPrefectures } from 'src/mocks/resolvers/mockPrefecturesApi';
 import { server } from 'src/mocks/server';
 import { RESAS_API_ENDPOINT, RESAS_API_POPULATIONS_PATH, RESAS_API_PREFECTURES_PATH } from './constants';
@@ -85,7 +85,7 @@ describe('ResasApiClient test', () => {
       const res = await apiClient.getPopulations('1');
       // expect(mockUrlFn).toHaveBeenCalledTimes(1);
       // expect(mockUrlFn).toHaveBeenCalledWith(`${RESAS_API_ENDPOINT + RESAS_API_POPULATIONS_PATH}?perfCode=1&cityCode=-`);
-      expect(res).toStrictEqual(mockPopulations.result);
+      expect(res).toStrictEqual(mockDefaultPopulations.result);
     });
 
     test('403 Forbidden', async () => {

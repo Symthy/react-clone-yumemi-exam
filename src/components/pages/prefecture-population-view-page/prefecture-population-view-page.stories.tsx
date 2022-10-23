@@ -2,11 +2,11 @@ import { Toaster } from 'react-hot-toast';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { mockPrefecturesForbiddenHandler } from 'src/mocks/handlers';
-import { PopulationPerPrefecturesPage } from './population-per-prefectures-page';
+import { PopulationPerPrefecturesPage as PrefecturePopulationViewPage } from './prefecture-population-view-page';
 
-export default { component: PopulationPerPrefecturesPage } as ComponentMeta<typeof PopulationPerPrefecturesPage>;
+export default { component: PrefecturePopulationViewPage } as ComponentMeta<typeof PrefecturePopulationViewPage>;
 
-export const Default: ComponentStoryObj<typeof PopulationPerPrefecturesPage> = {
+export const Default: ComponentStoryObj<typeof PrefecturePopulationViewPage> = {
   decorators: [
     (Story) => {
       const queryClient = new QueryClient();
@@ -19,7 +19,7 @@ export const Default: ComponentStoryObj<typeof PopulationPerPrefecturesPage> = {
   ]
 };
 
-export const ClientError: ComponentStoryObj<typeof PopulationPerPrefecturesPage> = {
+export const ClientError: ComponentStoryObj<typeof PrefecturePopulationViewPage> = {
   parameters: {
     msw: {
       handlers: { prefectures: mockPrefecturesForbiddenHandler } // overwrite
