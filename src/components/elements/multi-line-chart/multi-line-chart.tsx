@@ -20,13 +20,14 @@ export const MultiLineChart = ({ input }: MultiLineChartProps) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        {Object.keys(xLabelToColor).map((datakey, index) => (
+        {Object.keys(xLabelToColor).map((xLabel) => (
           <Line
-            key={`line-${String(index)}`}
+            key={`line-${xLabel}`}
             connectNulls
             type='monotone'
-            dataKey={datakey}
-            stroke={xLabelToColor[datakey]}
+            dataKey={xLabel}
+            stroke={xLabelToColor[xLabel]}
+            isAnimationActive={false}
           />
         ))}
       </LineChart>
