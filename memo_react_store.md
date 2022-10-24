@@ -47,6 +47,94 @@ const ComponentC = () => {
 };
 ```
 
+#### Context への工夫
+
+ref: [本気で考える React のベストプラクティス！bulletproof-react2022](https://zenn.dev/t_keshi/articles/bulletproof-react-2022#%E7%8A%B6%E6%85%8B%E7%AE%A1%E7%90%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+
+- 不要な再レンダリングに対して、コンテキストを分割する方法
+
+使い方：https://github.com/streamich/react-use/blob/master/docs/createReducerContext.md
+
+```typescript
+import { createContext, createElement, useContext, useReducer } from 'react';
+
+const createReducerContext = <R extends React.Reducer<any, any>>(
+  reducer: R,
+  defaultInitialState: React.ReducerState<R>
+) => {
+  const context = createContext<[React.ReducerState<R>, React.Dispatch<React.ReducerAction<R>>] | undefined>(undefined);
+  const providerFactory = (props, children) => createElement(context.Provider, props, children);
+
+  const ReducerProvider = ({
+    children,
+    initialState
+  }: {
+    children?: React.ReactNode;
+    initialState?: React.ReducerState<R>;
+  }) => {
+    const state = useReducer<R>(reducer, initialState !== undefined ? initialState : defaultInitialState);
+    return providerFactory({ value: state }, children);
+  };
+
+  const useReducerContext = () => {
+    const state = useContext(context);
+    if (state == null) {
+      throw new Error(`useReducerContext must be used inside a ReducerProvider.`);
+    }
+    return state;
+  };
+
+  return [useReducerContext, ReducerProvider, context] as const;
+};
+
+export default createReducerContext;
+```
+
+Redux の combineReducers 的なものが欲しければ次のようにすることも可能
+
+```typescript
+const combineProviders: (providers: React.FC[]) => React.FC = (providers) =>
+  providers.reduce((Combined, Provider) => {
+    const combine = ({ children }: React.ComponentProps<React.FC>): JSX.Element => (
+      <Combined>
+        <Provider>{children}</Provider>
+      </Combined>
+    );
+
+    return combine;
+  });
+
+const Providers: React.FC = combineProviders([SnackbarProvider, HogeProvider, HogeHogeProvider]);
+```
+
+useContext の書き味が気に入らなければ、工夫次第で解決できるかも
+
+ref: https://github.com/streamich/react-use/blob/master/src/factory/createStateContext.ts
+
+```typescript
+const createStateContext = <T>(defaultInitialValue: T) => {
+  const context = createContext<[T, React.Dispatch<React.SetStateAction<T>>] | undefined>(undefined);
+  const providerFactory = (props, children) => createElement(context.Provider, props, children);
+
+  const StateProvider = ({ children, initialValue }: { children?: React.ReactNode; initialValue?: T }) => {
+    const state = useState<T>(initialValue !== undefined ? initialValue : defaultInitialValue);
+    return providerFactory({ value: state }, children);
+  };
+
+  const useStateContext = () => {
+    const state = useContext(context);
+    if (state == null) {
+      throw new Error(`useStateContext must be used inside a StateProvider.`);
+    }
+    return state;
+  };
+
+  return [useStateContext, StateProvider, context] as const;
+};
+
+export default createStateContext;
+```
+
 ## Redux/Recoil
 
 共通点：パフォーマンス上の課題を解決するもの

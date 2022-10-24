@@ -2,7 +2,7 @@ import { Toaster } from 'react-hot-toast';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { mockPrefecturesForbiddenHandler } from 'src/mocks/handlers';
-import { PopulationPerPrefecturesPage as PrefecturePopulationViewPage } from './prefecture-population-view-page';
+import { PerPrefecturePopulationViewPage as PrefecturePopulationViewPage } from './prefecture-population-view-page';
 
 export default { component: PrefecturePopulationViewPage } as ComponentMeta<typeof PrefecturePopulationViewPage>;
 

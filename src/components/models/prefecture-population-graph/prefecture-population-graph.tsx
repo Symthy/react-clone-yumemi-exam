@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { MultiLineChart } from 'src/components/elements/multi-line-chart';
 import { Prefecture } from 'src/types';
 import { convertToMultiLineInput } from './converter';
@@ -10,11 +10,10 @@ type PrefecturePopulationGraphProps = {
   prefectures: Prefecture[];
 };
 
-const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationGraphProps) => {
+export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationGraphProps) => {
   const [perfectureToPopulationDataSets, setPrefectureToPopulationDataSets] = useState<PrefectureToPopulationDataSet[]>(
     []
   );
-
   const { isLoading, prefectureToPopulationResponseResults } = usePopulationsQueries(prefectures);
 
   useSavePopulationDataset(
@@ -28,17 +27,13 @@ const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationGraphPro
     [selectedLabel, perfectureToPopulationDataSets]
   );
 
-  if (isLoading) {
+  if (isLoading && prefectures.length === 0) {
     // Todo
     return <div>Loading...</div>;
   }
-  if (prefectures.length === 0 || perfectureToPopulationDataSets.length === 0) {
+  if (prefectures.length === 0) {
     // Todo
     return <div>No Data</div>;
   }
   return <MultiLineChart input={inputData} />;
 };
-
-export const PrefecturePopulationGraphMemo = memo<PrefecturePopulationGraphProps>(({ prefectures }) => (
-  <PrefecturePopulationGraph prefectures={prefectures} />
-));

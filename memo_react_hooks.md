@@ -56,3 +56,14 @@ return (
 ## useEffect
 
 依存しているものを、中で更新すると無限ループが起きる
+
+## react-use
+
+React の便利 custom hooks が定義されているライブラリ。
+
+実装や設計から学べることは多い。（作ろうとしたものが既にあるかもしれない）
+
+ref:
+
+- https://github.com/streamich/react-use
+- [react-use の実装から学ぶ custom hooks](https://zenn.dev/kobayang/articles/9145de86b20ba6)

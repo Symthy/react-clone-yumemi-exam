@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Prefecture } from 'src/types';
-import { PrefecturePopulationGraphMemo } from './prefecture-population-graph';
+import { PrefecturePopulationGraph } from './prefecture-population-graph';
 
 const testPerfs: Prefecture[] = [
   {
@@ -26,9 +26,9 @@ const testPerfs: Prefecture[] = [
   }
 ];
 
-export default { component: PrefecturePopulationGraphMemo } as ComponentMeta<typeof PrefecturePopulationGraphMemo>;
+export default { component: PrefecturePopulationGraph } as ComponentMeta<typeof PrefecturePopulationGraph>;
 
-export const Default: ComponentStoryObj<typeof PrefecturePopulationGraphMemo> = {
+export const Default: ComponentStoryObj<typeof PrefecturePopulationGraph> = {
   args: {
     prefectures: testPerfs
   },

@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+import { PREFECTURE_POPULATION_VIEW } from './consts';
 
 export const useRedirectAfterLogin = () => {
   const navigate = useNavigate();
-  const redirector = () => navigate('/population-view');
+  const redirector = () => navigate(PREFECTURE_POPULATION_VIEW);
   return redirector;
 };

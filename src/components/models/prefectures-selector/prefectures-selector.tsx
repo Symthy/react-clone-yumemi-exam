@@ -17,8 +17,8 @@ export const PrefecturesSelector = ({ prefectures, setPrefectures }: Prefectures
   const { isLoading, prefectureResponseResult } = usePrefecturesQuery();
   useSavePrefectures(prefectureResponseResult, setPrefectures);
 
-  // Todo
   if (isLoading) {
+    // Todo
     return <p>Loading...</p>;
   }
 
