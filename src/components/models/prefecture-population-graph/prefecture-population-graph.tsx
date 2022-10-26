@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
+import { css } from '@emotion/react';
 import { MultiLineChart } from 'src/components/elements/multi-line-chart';
+import { RadioButtons, useRadioState } from 'src/components/elements/radio-buttons';
 import { Prefecture } from 'src/types';
 import { convertToMultiLineInput } from './converter';
 import { PrefectureToPopulationDataSet } from './type';
@@ -8,6 +10,18 @@ import { useSavePopulationDataset } from './useSavePopulationDataSet';
 
 type PrefecturePopulationGraphProps = {
   prefectures: Prefecture[];
+};
+
+const styles = {
+  container: css`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    > * {
+      margin: 0.5rem;
+    }
+  `
 };
 
 export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationGraphProps) => {
@@ -21,10 +35,14 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
     useCallback((datasets: PrefectureToPopulationDataSet[]) => setPrefectureToPopulationDataSets(datasets), [])
   );
 
-  const selectedLabel = '総人口'; // Todo
-  const inputData = useMemo(
-    () => convertToMultiLineInput(selectedLabel, perfectureToPopulationDataSets),
-    [selectedLabel, perfectureToPopulationDataSets]
+  const { selectedItem, checked, onChange } = useRadioState('総人口');
+  const multiLineInputData = useMemo(
+    () => convertToMultiLineInput(selectedItem, perfectureToPopulationDataSets),
+    [selectedItem, perfectureToPopulationDataSets]
+  );
+  const statisticsItems = perfectureToPopulationDataSets.reduce<Set<string>>(
+    (items, dataset) => new Set([...items, ...dataset.populations.labelToPopulations.keys()]),
+    new Set()
   );
 
   if (isLoading && prefectures.length === 0) {
@@ -35,5 +53,10 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
     // Todo
     return <div>No Data</div>;
   }
-  return <MultiLineChart input={inputData} />;
+  return (
+    <div css={styles.container}>
+      <RadioButtons name='population' items={[...statisticsItems]} checked={checked} onChange={onChange} />
+      <MultiLineChart input={multiLineInputData} />
+    </div>
+  );
 };

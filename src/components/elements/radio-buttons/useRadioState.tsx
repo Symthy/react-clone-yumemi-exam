@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
-export const useRadioState = (initItem: string) => {
+export const useRadioState = (initItem = '') => {
   const [selectedItem, setSelectedItem] = useState(initItem);
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedItem(e.target.value);

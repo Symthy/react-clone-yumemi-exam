@@ -13,7 +13,7 @@ const styles = {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 
     > label {
-      padding: 1rem 0.5rem;
+      padding: 0.6rem 0.5rem;
       :first-child {
         padding-left: 1rem;
       }
