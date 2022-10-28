@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { ExternalIconLink } from './external-icon-link';
+import { ExternalIconLink } from './external-icon-svg-link';
 
 export default { component: ExternalIconLink } as ComponentMeta<typeof ExternalIconLink>;
 

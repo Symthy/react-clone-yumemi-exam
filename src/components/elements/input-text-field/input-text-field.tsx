@@ -11,8 +11,10 @@ type InputTextFieldProps = {
 };
 
 const styles = css`
+  width: 15rem;
   border: none;
   border-radius: ${4 / 16}rem;
+  box-shadow: 1px 1px 1px inset darkgray;
   outline: solid 1px gray;
   :focus {
     outline: solid 2px dodgerblue;
@@ -29,7 +31,7 @@ export const InputTextField = ({
 }: InputTextFieldProps) => (
   <input
     css={[styles, additionalStyles]}
-    type='text'
+    type='password'
     required={isRequired}
     placeholder={placeholder}
     value={value}

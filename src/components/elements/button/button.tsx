@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { css, SerializedStyles } from '@emotion/react';
+import { themeColor } from 'src/styles';
 
 type ButtonProps = {
   label: string;
@@ -11,7 +12,7 @@ type ButtonProps = {
 
 const styles = {
   btn: css`
-    // height: 2rem;
+    background-color: ${themeColor};
     box-sizing: border-box;
     cursor: pointer;
     white-space: nowrap;
@@ -24,8 +25,13 @@ const styles = {
     padding: ${2 / 16}rem ${16 / 16}rem;
     border-radius: ${18 / 16}rem;
     line-height: 200%;
+
+    :hover {
+      opacity: 0.7;
+    }
   `,
   label: css`
+    color: white;
     font-size: ${18 / 16}rem;
     padding: 0 ${8 / 16}rem;
   `

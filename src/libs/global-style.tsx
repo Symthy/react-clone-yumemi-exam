@@ -7,6 +7,13 @@ export const styles = css`
   ${sanitize}
   ${typography}
   ${forms}
+
+  html {
+    height: 100%;
+  }
+  body {
+    height: 100%;
+  }
 `;
 
 export const GlobalStyles = () => <Global styles={styles} />;

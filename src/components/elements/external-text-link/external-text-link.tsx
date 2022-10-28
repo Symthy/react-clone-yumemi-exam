@@ -1,18 +1,34 @@
+import { css } from '@emotion/react';
+
+const styles = css`
+  display: inline-flex;
+  align-items: center;
+  > * {
+    margin: 0;
+  }
+`;
+
 type ExternalTextLinkProps = {
-  label: string;
+  beforeLabel?: string;
+  linkLabel: string;
+  afterLabel?: string;
   url: string;
   fontSize?: number;
 };
 
-export const ExternalTextLink = ({ label, url, fontSize }: ExternalTextLinkProps) => {
+export const ExternalTextLink = ({ beforeLabel, linkLabel, afterLabel, url, fontSize }: ExternalTextLinkProps) => {
   const fontStyle = fontSize ? { fontSize: `${fontSize / 16}rem` } : {};
   const linkStyle = {
     cursor: 'pointer',
     ...fontStyle
   };
   return (
-    <a style={linkStyle} href={url}>
-      {label}
-    </a>
+    <div css={styles}>
+      <p style={linkStyle}>{beforeLabel}</p>
+      <a style={linkStyle} href={url}>
+        {linkLabel}
+      </a>
+      <p style={linkStyle}>{afterLabel}</p>
+    </div>
   );
 };

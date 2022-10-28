@@ -8,7 +8,7 @@ const styles = {
     grid-template-columns: repeat(auto-fill, minmax(6.5rem, 6.5rem));
 
     > * {
-      margin: ${4 / 16}rem ${0 / 16}rem;
+      margin: ${2 / 16}rem ${8 / 16}rem;
     }
   `
 };

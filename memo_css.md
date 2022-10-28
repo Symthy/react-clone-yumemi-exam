@@ -109,7 +109,7 @@ styled-components ライブラリの
 ```typescript
 import * as Styled from './styled';
 // use styled.components
-<styled.Main>// code</styled.Main>;
+<styled.Main>{code}</styled.Main>;
 ```
 
 ref: [The Pros and Cons of Using Styled Components in React](https://www.makeuseof.com/styled-components-react-pros-cons/)
