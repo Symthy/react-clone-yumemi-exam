@@ -5,14 +5,18 @@ export default { component: ExternalTextLink } as ComponentMeta<typeof ExternalT
 
 export const Normal: ComponentStoryObj<typeof ExternalTextLink> = {
   args: {
-    label: 'Github',
+    beforeLabel: 'Github(',
+    linkLabel: 'こちら',
+    afterLabel: ')',
     url: 'https://github.com/Symthy'
   }
 };
 
 export const Resize: ComponentStoryObj<typeof ExternalTextLink> = {
   args: {
-    label: 'Github',
+    beforeLabel: 'Github(',
+    linkLabel: 'こちら',
+    afterLabel: ')',
     url: 'https://github.com/Symthy',
     fontSize: 10
   }
