@@ -11,9 +11,12 @@ const entranceRoute = (
   </RequireApiKey>
 );
 
-export const router = createBrowserRouter([
-  { index: true, element: entranceRoute },
-  { path: LOGIN_PATH, element: <LoginPage /> },
-  { path: PREFECTURE_POPULATION_VIEW_PATH, element: entranceRoute },
-  { path: '/*', element: <NotFoundPage /> }
-]);
+export const router = createBrowserRouter(
+  [
+    { index: true, element: entranceRoute },
+    { path: LOGIN_PATH, element: <LoginPage /> },
+    { path: PREFECTURE_POPULATION_VIEW_PATH, element: entranceRoute },
+    { path: '/*', element: <NotFoundPage /> }
+  ],
+  { basename: import.meta.env.BASE_URL } // Github Pages用
+);
