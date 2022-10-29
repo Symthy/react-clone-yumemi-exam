@@ -1,3 +1,4 @@
+import { TitleBodyLayout } from 'src/components/elements/title-body-layout';
 import { SelectionArea } from 'src/components/templates/selection-area/selection-area';
 import { Prefecture } from 'src/types';
 import { useConvertToSelectableItems } from './useConvertToSelectableItems';
@@ -17,16 +18,16 @@ export const PrefecturesSelector = ({ prefectures, setPrefectures }: Prefectures
   const { isLoading, prefectureResponseResult } = usePrefecturesQuery();
   useSavePrefectures(prefectureResponseResult, setPrefectures);
 
-  if (isLoading) {
-    // Todo
-    return <p>Loading...</p>;
-  }
-
   return (
-    <SelectionArea
-      title='都道府県一覧'
-      selectableItems={convertToSelectableItems(prefectures)}
-      updateSelectedPrefecture={updateSelectedPrefecture}
-    />
+    <TitleBodyLayout title='都道府県一覧' existsBorder>
+      {isLoading ? (
+        <p>Loading...</p> // Todo
+      ) : (
+        <SelectionArea
+          selectableItems={convertToSelectableItems(prefectures)}
+          updateSelectedPrefecture={updateSelectedPrefecture}
+        />
+      )}
+    </TitleBodyLayout>
   );
 };

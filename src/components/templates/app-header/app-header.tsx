@@ -26,9 +26,13 @@ const styles = {
   `
 };
 
-export const AppHeader = () => (
+type AppHeaderProps = {
+  title?: string;
+};
+
+export const AppHeader = ({ title = '都道府県別 総人口推移グラフ' }: AppHeaderProps) => (
   <header css={styles.container}>
-    <h1 css={styles.title}>都道府県別 総人口推移グラフ</h1>
+    <h1 css={styles.title}>{title}</h1>
     <div css={styles.links}>
       <IconLinkWrapper
         url='https://github.com/Symthy/react-clone-yumemi-exam'

@@ -1,7 +1,10 @@
+/* eslint-disable no-nested-ternary */
 import { useCallback, useMemo, useState } from 'react';
 import { css } from '@emotion/react';
+import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import { MultiLineChart } from 'src/components/elements/multi-line-chart';
 import { RadioButtons, useRadioState } from 'src/components/elements/radio-buttons';
+import { TitleBodyLayout } from 'src/components/elements/title-body-layout';
 import { Prefecture } from 'src/types';
 import { convertToMultiLineInput } from './converter';
 import { PrefectureToPopulationDataSet } from './type';
@@ -20,6 +23,13 @@ const styles = {
 
     > * {
       margin: 0.5rem;
+    }
+  `,
+  noData: css`
+    display: inline-flex;
+    align-items: center;
+    > :first-child {
+      margin: 0 0.5rem;
     }
   `
 };
@@ -45,18 +55,32 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
     new Set()
   );
 
-  if (isLoading && prefectures.length === 0) {
-    // Todo
-    return <div>Loading...</div>;
-  }
-  if (prefectures.length === 0) {
-    // Todo
-    return <div>No Data</div>;
-  }
   return (
-    <div css={styles.container}>
-      <RadioButtons name='population' items={[...statisticsItems]} checked={checked} onChange={onChange} />
-      <MultiLineChart input={multiLineInputData} />
-    </div>
+    <TitleBodyLayout
+      title='都道府県別人口グラフ'
+      additionalStyles={css`
+        margin-top: 1rem;
+      `}
+    >
+      {isLoading && prefectures.length === 0 ? (
+        <p>Loading...</p> // Todo
+      ) : prefectures.length === 0 ? (
+        <div css={styles.noData}>
+          <HiOutlineExclamationTriangle size={20} />
+          <p>都道府県を選択してください</p>
+        </div>
+      ) : (
+        <div css={styles.container}>
+          <RadioButtons name='population' items={[...statisticsItems]} checked={checked} onChange={onChange} />
+          <MultiLineChart
+            input={multiLineInputData}
+            xAliasUnit='年'
+            yAliasUnit='人'
+            yAliasWidth={70}
+            yAliasTickFormatter={(tick: number) => tick.toLocaleString()}
+          />
+        </div>
+      )}
+    </TitleBodyLayout>
   );
 };

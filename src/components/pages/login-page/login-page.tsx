@@ -54,7 +54,6 @@ const styles = {
   formLabel: css`
     font-size: ${16 / 16}rem;
     background-color: white;
-    box-sizing: border-box;
     padding: 1px 3px;
     position: absolute;
     top: 0;

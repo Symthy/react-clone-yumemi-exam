@@ -19,14 +19,12 @@ const items: Array<SelectableItem> = [
 
 export const MultiItems: ComponentStoryObj<typeof SelectionArea> = {
   args: {
-    title: 'Selectable Items',
     selectableItems: items
   }
 };
 
 export const NoItem: ComponentStoryObj<typeof SelectionArea> = {
   args: {
-    title: 'Selectable Items (Nothing)',
     selectableItems: []
   }
 };

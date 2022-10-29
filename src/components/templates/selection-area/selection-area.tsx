@@ -14,14 +14,12 @@ const styles = {
 };
 
 type SelectionAreaProps = {
-  title: string;
   selectableItems: SelectableItem[];
   updateSelectedPrefecture: (id: string, isSelected: boolean) => void;
 };
 
-export const SelectionArea = ({ title, selectableItems, updateSelectedPrefecture }: SelectionAreaProps) => (
+export const SelectionArea = ({ selectableItems, updateSelectedPrefecture }: SelectionAreaProps) => (
   <div>
-    <p>{title}</p>
     {selectableItems.length === 0 ? (
       <p>no item</p>
     ) : (
