@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { css, SerializedStyles } from '@emotion/react';
-import { themeColor } from 'src/styles';
+import { commonStyles } from 'src/styles';
 
 type ButtonProps = {
   label: string;
@@ -12,7 +12,7 @@ type ButtonProps = {
 
 const styles = {
   btn: css`
-    background-color: ${themeColor};
+    background-color: ${commonStyles.themeColor};
     box-sizing: border-box;
     cursor: pointer;
     white-space: nowrap;

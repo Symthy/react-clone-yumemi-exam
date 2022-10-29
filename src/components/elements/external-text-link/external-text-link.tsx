@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 
 const styles = css`
   display: inline-flex;
@@ -14,16 +14,24 @@ type ExternalTextLinkProps = {
   afterLabel?: string;
   url: string;
   fontSize?: number;
+  additionalStyles?: SerializedStyles;
 };
 
-export const ExternalTextLink = ({ beforeLabel, linkLabel, afterLabel, url, fontSize }: ExternalTextLinkProps) => {
+export const ExternalTextLink = ({
+  beforeLabel,
+  linkLabel,
+  afterLabel,
+  url,
+  fontSize,
+  additionalStyles
+}: ExternalTextLinkProps) => {
   const fontStyle = fontSize ? { fontSize: `${fontSize / 16}rem` } : {};
   const linkStyle = {
     cursor: 'pointer',
     ...fontStyle
   };
   return (
-    <div css={styles}>
+    <div css={[styles, additionalStyles]}>
       <p style={linkStyle}>{beforeLabel}</p>
       <a style={linkStyle} href={url}>
         {linkLabel}
