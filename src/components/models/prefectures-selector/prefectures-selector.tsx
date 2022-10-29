@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { TitleBodyLayout } from 'src/components/elements/title-body-layout';
 import { SelectionArea } from 'src/components/templates/selection-area/selection-area';
 import { Prefecture } from 'src/types';
@@ -19,7 +20,13 @@ export const PrefecturesSelector = ({ prefectures, setPrefectures }: Prefectures
   useSavePrefectures(prefectureResponseResult, setPrefectures);
 
   return (
-    <TitleBodyLayout title='都道府県一覧' existsBorder>
+    <TitleBodyLayout
+      title='都道府県一覧'
+      existsBorder
+      additionalStyles={css`
+        padding: 2rem 1.6rem 0 1.6rem;
+      `}
+    >
       {isLoading ? (
         <p>Loading...</p> // Todo
       ) : (

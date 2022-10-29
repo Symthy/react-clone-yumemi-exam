@@ -56,6 +56,7 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
       title='都道府県別人口グラフ'
       additionalStyles={css`
         margin-top: 1rem;
+        padding: 2rem 1rem 0 1rem;
       `}
     >
       {isLoading && prefectures.length === 0 ? (
@@ -80,7 +81,7 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
             input={multiLineInputData}
             xAliasUnit='年'
             yAliasUnit='人'
-            yAliasWidth={70}
+            yAliasWidth={75}
             yAliasTickFormatter={(tick: number) => tick.toLocaleString()}
           />
         </div>
