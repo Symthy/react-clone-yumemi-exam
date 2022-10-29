@@ -20,10 +20,6 @@ const styles = {
     display: flex;
     align-items: center;
     flex-direction: column;
-
-    > * {
-      margin: 0.5rem;
-    }
   `,
   noData: css`
     display: inline-flex;
@@ -71,7 +67,15 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
         </div>
       ) : (
         <div css={styles.container}>
-          <RadioButtons name='population' items={[...statisticsItems]} checked={checked} onChange={onChange} />
+          <RadioButtons
+            name='population'
+            items={[...statisticsItems]}
+            checked={checked}
+            onChange={onChange}
+            additionalStyles={css`
+              margin-bottom: 1rem;
+            `}
+          />
           <MultiLineChart
             input={multiLineInputData}
             xAliasUnit='年'

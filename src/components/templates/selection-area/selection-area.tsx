@@ -5,10 +5,10 @@ import { SelectableItem } from './types';
 const styles = {
   container: css`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(6.5rem, 6.5rem));
+    grid-template-columns: repeat(auto-fill, minmax(6.8rem, 6.8rem));
 
     > * {
-      margin: ${2 / 16}rem ${8 / 16}rem;
+      margin: ${0 / 16}rem ${0 / 16}rem ${0 / 16}rem ${16 / 16}rem;
     }
   `
 };

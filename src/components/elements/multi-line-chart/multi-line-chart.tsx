@@ -34,7 +34,7 @@ export const MultiLineChart = ({
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey={NameKey} unit={xAliasUnit} tickFormatter={xAliasTickFormatter} />
         <YAxis unit={yAliasUnit} width={yAliasWidth} tickFormatter={yAliasTickFormatter} />
-        <Tooltip />
+        <Tooltip formatter={(value, name) => [yAliasTickFormatter(value), xAliasTickFormatter(name)]} />
         <Legend />
         {Object.keys(xLabelToColor).map((xLabel) => (
           <Line

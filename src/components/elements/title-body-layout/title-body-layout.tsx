@@ -5,7 +5,7 @@ import { commonStyles } from 'src/styles';
 const styles = {
   foundation: css`
     box-sizing: content-box;
-    padding: ${12 / 16}rem 0;
+    padding: ${16 / 16}rem;
   `,
   container: css`
     box-sizing: content-box;
