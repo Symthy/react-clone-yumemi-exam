@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Build and Deploy GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -19,24 +19,45 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build job
-  build:
+  build_v16:
+    runs-on: ubuntu-latest
+    # strategy:  # 両方同時に行い片方デプロイとしたいがやり方不明のため分割
+    #   matrix:
+    #     node-version: [16.x, 18.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          # node-version: ${{ matrix.node-version }}
+          node-version: 16
+          cache: npm
+      - name: Install Dependencies
+        run: npm run ci
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run test
+
+  build_v18_for_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # 以下テンプレから書き換え
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: npm
       - name: Install
-        run: npm run install
+        run: npm run ci
       - name: Build
         run: npm run build
         env:
           GITHUB_PAGES: true
+      - name: Test
+        run: npm run test
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
@@ -48,7 +69,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: build_test_for_deploy
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
