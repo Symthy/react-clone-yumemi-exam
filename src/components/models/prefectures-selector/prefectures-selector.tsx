@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { TitleBodyLayout } from 'src/components/elements/title-body-layout';
+import { Loading } from 'src/components/templates/loading';
 import { SelectionArea } from 'src/components/templates/selection-area/selection-area';
 import { Prefecture } from 'src/types';
 import { useConvertToSelectableItems } from './useConvertToSelectableItems';
@@ -28,7 +29,7 @@ export const PrefecturesSelector = ({ prefectures, setPrefectures }: Prefectures
       `}
     >
       {isLoading ? (
-        <p>Loading...</p> // Todo
+        <Loading />
       ) : (
         <SelectionArea
           selectableItems={convertToSelectableItems(prefectures)}

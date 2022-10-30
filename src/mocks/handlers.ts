@@ -9,5 +9,6 @@ export const mockPrefecturesApiHandler = rest.get(RESAS_API_ENDPOINT + RESAS_API
 export const mockPopulationsApiHandler = rest.get(RESAS_API_ENDPOINT + RESAS_API_POPULATIONS_PATH, mockPopulationsApi);
 
 export const mockPrefecturesForbiddenHandler = rest.get(RESAS_API_ENDPOINT + RESAS_API_PREFECTURES_PATH, forbidden);
+export const mockPopulationsForbiddenHandler = rest.get(RESAS_API_ENDPOINT + RESAS_API_POPULATIONS_PATH, forbidden);
 
 export const handlers = [mockPrefecturesApiHandler, mockPopulationsApiHandler];

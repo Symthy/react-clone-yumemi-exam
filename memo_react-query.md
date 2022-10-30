@@ -80,3 +80,40 @@ ref: [react-query：invalidate と reset の挙動の違い](https://oita.oika.m
 ## Error handling
 
 [React Query Error Handling](https://tkdodo.eu/blog/react-query-error-handling#error-boundaries)
+
+## Suspense
+
+[React Query の Suspese Mode を使ってみた!](https://re-engines.com/2022/04/11/react-query-suspense/)
+
+グローバルにも個別にも設定可能
+
+```typescript
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true
+    }
+  }
+});
+```
+
+```typescript
+export const IssuesContainer: VFC = () => {
+  return (
+    <Container>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary reset={reset}>
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <Issues labels='' />
+            </Suspense>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
+    </Container>
+  );
+};
+```
+
+- エラーが発生した場合は、ErrorBoundary コンポーネントでキャッチ
+- QueryErrorResetBoundary を使うと、エラー発生時に reset() を呼び出すことで、クエリを再試行できる。

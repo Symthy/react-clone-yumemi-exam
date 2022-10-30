@@ -15,4 +15,10 @@
 - ローディングコンポーネント
 - ログイン画面バリデーション
 - エラー型付け
-- Suspense
+- react-dev-tool warning 解消
+
+Suspsense について
+
+- useQueries の対応がまだのようなので導入見送り
+  - ref: https://github.com/TanStack/query/issues/1523
+- そもそも Suspsense 導入できるコンポーネントが 1/3 のため導入するメリットも今はあまりない（必要になったらで良い）

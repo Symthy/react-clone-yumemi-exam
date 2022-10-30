@@ -1,5 +1,7 @@
+import { Toaster } from 'react-hot-toast';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { mockPopulationsForbiddenHandler } from 'src/mocks/handlers';
 import { Prefecture } from 'src/types';
 import { PrefecturePopulationGraph } from './prefecture-population-graph';
 
@@ -38,6 +40,28 @@ export const Default: ComponentStoryObj<typeof PrefecturePopulationGraph> = {
       return (
         <QueryClientProvider client={queryClient}>
           <Story />
+        </QueryClientProvider>
+      );
+    }
+  ]
+};
+
+export const ClientError: ComponentStoryObj<typeof PrefecturePopulationGraph> = {
+  args: {
+    prefectures: []
+  },
+  parameters: {
+    msw: {
+      handlers: { population: mockPopulationsForbiddenHandler } // overwrite
+    }
+  },
+  decorators: [
+    (Story) => {
+      const queryClient = new QueryClient();
+      return (
+        <QueryClientProvider client={queryClient}>
+          <Story />
+          <Toaster />
         </QueryClientProvider>
       );
     }

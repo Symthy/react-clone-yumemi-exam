@@ -10,6 +10,9 @@ const styles = {
     > * {
       margin: ${0 / 16}rem ${0 / 16}rem ${0 / 16}rem ${16 / 16}rem;
     }
+  `,
+  noItem: css`
+    margin-left: 0.5rem;
   `
 };
 
@@ -21,7 +24,7 @@ type SelectionAreaProps = {
 export const SelectionArea = ({ selectableItems, updateSelectedPrefecture }: SelectionAreaProps) => (
   <div>
     {selectableItems.length === 0 ? (
-      <p>no item</p>
+      <p css={styles.noItem}>No Item</p>
     ) : (
       <div css={styles.container}>
         {selectableItems.map((item) => (

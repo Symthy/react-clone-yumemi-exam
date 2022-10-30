@@ -5,6 +5,7 @@ import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 import { MultiLineChart } from 'src/components/elements/multi-line-chart';
 import { RadioButtons, useRadioState } from 'src/components/elements/radio-buttons';
 import { TitleBodyLayout } from 'src/components/elements/title-body-layout';
+import { Loading } from 'src/components/templates/loading';
 import { Prefecture } from 'src/types';
 import { convertToMultiLineInput } from './converter';
 import { PrefectureToPopulationDataSet } from './type';
@@ -60,7 +61,7 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
       `}
     >
       {isLoading && prefectures.length === 0 ? (
-        <p>Loading...</p> // Todo
+        <Loading />
       ) : prefectures.length === 0 ? (
         <div css={styles.noData}>
           <HiOutlineExclamationTriangle size={20} />

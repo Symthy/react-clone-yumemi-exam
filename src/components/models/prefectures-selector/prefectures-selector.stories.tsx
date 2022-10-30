@@ -1,5 +1,7 @@
+import { Toaster } from 'react-hot-toast';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { mockPrefecturesForbiddenHandler } from 'src/mocks/handlers';
 import { Prefecture } from 'src/types';
 import { PrefecturesSelector } from './prefectures-selector';
 
@@ -79,6 +81,29 @@ export const Default: ComponentStoryObj<typeof PrefecturesSelector> = {
       return (
         <QueryClientProvider client={queryClient}>
           <Story />
+        </QueryClientProvider>
+      );
+    }
+  ]
+};
+
+export const ClientError: ComponentStoryObj<typeof PrefecturesSelector> = {
+  args: {
+    prefectures: [],
+    setPrefectures: () => {}
+  },
+  parameters: {
+    msw: {
+      handlers: { prefectures: mockPrefecturesForbiddenHandler } // overwrite
+    }
+  },
+  decorators: [
+    (Story) => {
+      const queryClient = new QueryClient();
+      return (
+        <QueryClientProvider client={queryClient}>
+          <Story />
+          <Toaster />
         </QueryClientProvider>
       );
     }
