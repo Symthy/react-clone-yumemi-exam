@@ -10,11 +10,15 @@
 
 残タスクメモ：
 
-- トースターカスタマイズ
-- エラー画面
 - ログイン画面バリデーション
-- エラー型付け
+
+改善タスク：
+
+- テスト
+- Jotai → Context に変更
+- エラー型付け ref: https://labs.septeni.co.jp/entry/2020/07/23/100000#%E3%81%BE%E3%81%A8%E3%82%81
 - react-dev-tool warning 解消
+- 開発環境改善 ref: https://qiita.com/kztmk_media_pep/items/11d063a155d414a102b1
 
 Suspsense について
 
