@@ -1,5 +1,6 @@
 import { ErrorResponseBody } from '../types';
 import { ApiClientError } from './ApiClientError';
+import { ApiClientForbiddenError } from './ApiClientForbiddenError';
 import { ApiServerError } from './ApiServerError';
 
 export const resolveApiError = (res: ErrorResponseBody): Error => {
@@ -9,6 +10,9 @@ export const resolveApiError = (res: ErrorResponseBody): Error => {
     return new Error(`unexpected api error${message !== '' ? ` (detail: ${message})` : ''}`);
   }
   if (status.match(/^4[0-9]{2}$/g)) {
+    if (status === '403') {
+      return new ApiClientForbiddenError(status, message);
+    }
     return new ApiClientError(status, message);
   }
   if (status.match(/^5[0-9]{2}$/g)) {
