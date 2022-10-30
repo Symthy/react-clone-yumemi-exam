@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
+import { Button } from 'src/components/elements/button';
 import { useRedirectTop } from 'src/routes/useRedirectTop';
-import { Button } from 'src/stories/Button';
 
 const styles = {
   container: css`
@@ -10,11 +10,11 @@ const styles = {
     align-content: space-around;
   `,
   titleNum: css`
-    font-size: 10rem;
+    font-size: 8rem;
     margin-top: 2rem;
   `,
   titleStr: css`
-    font-size: 5rem;
+    font-size: 4rem;
     margin-bottom: 2rem;
   `
 };
@@ -25,7 +25,7 @@ export const NotFoundPage = () => {
     <div css={styles.container}>
       <div css={styles.titleNum}>404</div>
       <div css={styles.titleStr}>Not Found</div>
-      <Button label='トップへ戻る' size='large' onClick={() => redirector()} />
+      <Button label='トップへ戻る' type='button' onClick={() => redirector()} />
     </div>
   );
 };

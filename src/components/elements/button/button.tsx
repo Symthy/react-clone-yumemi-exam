@@ -7,6 +7,7 @@ type ButtonProps = {
   type?: 'submit' | 'reset' | 'button';
   prefix?: ReactNode;
   suffix?: ReactNode;
+  onClick?: () => void;
   additionalStyles?: SerializedStyles;
 };
 
@@ -37,9 +38,16 @@ const styles = {
   `
 };
 
-export const Button = ({ label, type = 'button', prefix, suffix, additionalStyles }: ButtonProps) => (
+export const Button = ({
+  label,
+  type = 'button',
+  prefix,
+  suffix,
+  onClick = () => {},
+  additionalStyles
+}: ButtonProps) => (
   // eslint-disable-next-line react/button-has-type
-  <button css={[styles.btn, additionalStyles]} type={type}>
+  <button css={[styles.btn, additionalStyles]} type={type} onClick={onClick}>
     {prefix}
     <span css={styles.label}>{label}</span>
     {suffix}
