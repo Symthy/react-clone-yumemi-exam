@@ -18,8 +18,8 @@ const queryConfig: DefaultOptions = {
   queries: {
     retry: false,
     refetchOnWindowFocus: false,
-    cacheTime: Infinity,
-    staleTime: Infinity,
+    cacheTime: 24 * 60 * 60 * 1000, // 24h
+    staleTime: 24 * 60 * 60 * 1000,
     useErrorBoundary: true
   }
 };
@@ -70,8 +70,6 @@ export const errorBoundaryOption = {
   onError: (err: Error) => {
     if (err instanceof ApiClientError) {
       onToaster(err);
-      // Todo: ボタンで閉じるようにしたいのでカスタマイズする
-      // ref: https://mebee.info/2021/04/28/post-27258/
     }
   }
 };
