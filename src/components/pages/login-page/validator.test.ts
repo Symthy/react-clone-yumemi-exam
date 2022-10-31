@@ -4,7 +4,7 @@ import { ResasApiClient } from 'src/api/resasApiClient';
 import * as toastModule from 'src/libs/toast';
 import { forbiddenBody } from 'src/mocks/resolvers/errorForbidden';
 import { server } from 'src/mocks/server';
-import { validateApiKey } from './validater';
+import { validateApiKey } from './validator';
 
 describe('validate api key test', () => {
   const spiedOnCustomToaster = jest.spyOn(toastModule, 'onCustomToaster');

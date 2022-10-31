@@ -9,7 +9,7 @@ import * as useResasApiClientModule from 'src/api/useResasApiClient';
 import * as reactQueryModule from 'src/libs/react-query';
 import * as redirectorModule from 'src/routes/useRedirectAfterLogin';
 import { useSubmitApiKey } from './useSubmitApiKey';
-import * as validaterModule from './validater';
+import * as validaterModule from './validator';
 
 describe('useSubmitApiKey test', () => {
   let mockApiClient: ResasApiClient;

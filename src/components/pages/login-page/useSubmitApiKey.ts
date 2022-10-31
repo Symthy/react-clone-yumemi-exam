@@ -3,7 +3,7 @@ import { ResasApiClient } from 'src/api/resasApiClient';
 import { useResasApiClient } from 'src/api/useResasApiClient';
 import { resetQueryCache } from 'src/libs/react-query';
 import { useRedirectAfterLogin } from 'src/routes/useRedirectAfterLogin';
-import { validateApiKey } from './validater';
+import { validateApiKey } from './validator';
 
 export const useSubmitApiKey = (apiKey: string) => {
   const redirector = useRedirectAfterLogin();
