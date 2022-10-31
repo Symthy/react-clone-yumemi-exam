@@ -68,7 +68,7 @@ export const LoginPage = () => {
     setApiKey(e.target.value);
   };
 
-  const onSumbitApiKey = useSubmitApiKey(apiKey);
+  const { onSubmitApiKey } = useSubmitApiKey(apiKey);
 
   const { apiClient } = useResasApiClient();
   useEffect(() => {
@@ -93,7 +93,8 @@ export const LoginPage = () => {
             margin-bottom: 2rem;
           `}
         />
-        <form css={styles.form} onSubmit={onSumbitApiKey}>
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        <form css={styles.form} onSubmit={onSubmitApiKey}>
           <label css={styles.formLabel} htmlFor='apikey'>
             RESAS API キーを入力してください
           </label>
