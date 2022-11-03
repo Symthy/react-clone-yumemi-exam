@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { LoginPage } from 'src/components/pages/login-page/login-page';
 import { NotFoundPage } from 'src/components/pages/not-found/not-found';
-import { PerPrefecturePopulationViewPage } from 'src/components/pages/prefecture-population-view-page/index';
+import { LoginPage } from 'src/features/login';
+import { PrefectureGraphPage } from 'src/features/prefecture- statistical-graph';
 import { LOGIN_PATH, PREFECTURE_POPULATION_VIEW_PATH } from './consts';
 import { RequireApiKey } from './require-api-key';
 
 const entranceRoute = (
   <RequireApiKey>
-    <PerPrefecturePopulationViewPage />
+    <PrefectureGraphPage />
   </RequireApiKey>
 );
 

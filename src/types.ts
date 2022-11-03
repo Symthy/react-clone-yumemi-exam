@@ -19,7 +19,7 @@ export type PopulationResponseResult = {
 
 export type PopulationDataSet = {
   boundaryYear: number;
-  labelToPopulations: Map<string, Population[]>; // key: label
+  statisticsLabelToPopulations: Map<string, Population[]>; // key: label
 };
 
 export type PopulationsPerLabel = {
