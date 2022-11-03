@@ -21,7 +21,7 @@ export const usePopulationsQueries = (prefectures: Prefecture[]) => {
   }));
 
   const queryResults = useQueries({ queries });
-  const isLoading = queryResults.some((result) => result.isLoading);
+  const isLoading = queryResults.every((result) => result.isLoading);
   const prefectureToPopulationResponseResults = queryResults
     .map((result) => result.data)
     .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);

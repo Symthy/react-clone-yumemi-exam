@@ -49,13 +49,13 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
         padding: 2rem 1rem 0 1rem;
       `}
     >
-      {isLoading && prefectures.length === 0 ? (
-        <Loading />
-      ) : prefectures.length === 0 ? (
+      {prefectures.length === 0 ? (
         <div css={styles.noData}>
           <HiOutlineExclamationTriangle size={20} />
           <p>都道府県を選択してください</p>
         </div>
+      ) : isLoading && prefectures.length === 1 ? (
+        <Loading />
       ) : (
         <div css={styles.container}>
           <RadioButtons
