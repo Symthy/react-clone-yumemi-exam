@@ -38,16 +38,9 @@ const styles = {
   `
 };
 
-export const Button = ({
-  label,
-  type = 'button',
-  prefix,
-  suffix,
-  onClick = () => {},
-  additionalStyles
-}: ButtonProps) => (
-  // eslint-disable-next-line react/button-has-type
-  <button css={[styles.btn, additionalStyles]} type={type} onClick={onClick}>
+export const Button = ({ label, prefix, suffix, additionalStyles, ...props }: ButtonProps) => (
+  // eslint-disable-next-line react/button-has-type, react/jsx-props-no-spreading
+  <button css={[styles.btn, additionalStyles]} {...props}>
     {prefix}
     <span css={styles.label}>{label}</span>
     {suffix}

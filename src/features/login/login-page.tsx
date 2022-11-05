@@ -5,6 +5,7 @@ import { useResasApiClient } from 'src/api/useResasApiClient';
 import { Button } from 'src/components/elements/button';
 import { ExternalTextLink } from 'src/components/elements/external-text-link';
 import { InputTextField } from 'src/components/elements/input-text-field';
+import { LabelForm } from 'src/components/elements/label-form';
 import { commonStyles } from 'src/styles';
 import { useSubmitApiKey } from './hooks/useSubmitApiKey';
 
@@ -94,13 +95,11 @@ export const LoginPage = () => {
           `}
         />
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-        <form css={styles.form} onSubmit={onSubmitApiKey}>
-          <label css={styles.formLabel} htmlFor='apikey'>
-            RESAS API キーを入力してください
-          </label>
+        <LabelForm label='RESAS API キーを入力してください' onSubmit={onSubmitApiKey}>
           <InputTextField
             placeholder='API キー'
             value={apiKey}
+            type='password'
             onChange={onInputApiKey}
             additionalStyles={css`
               width: 16rem;
@@ -108,7 +107,7 @@ export const LoginPage = () => {
             `}
           />
           <Button label='利用開始' type='submit' suffix={<BiLogIn size={`${22 / 16}rem`} color='white' />} />
-        </form>
+        </LabelForm>
       </div>
     </div>
   );
