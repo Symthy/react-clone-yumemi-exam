@@ -4,8 +4,10 @@ import { BiLogIn } from 'react-icons/bi';
 import { useResasApiClient } from 'src/api/useResasApiClient';
 import { Button } from 'src/components/elements/button';
 import { ExternalTextLink } from 'src/components/elements/external-text-link';
-import { InputTextField } from 'src/components/elements/input-text-field';
 import { LabelForm } from 'src/components/elements/label-form';
+import { StyledDescription } from 'src/components/styled/description';
+import { StyledInputTextField } from 'src/components/styled/input-text-field';
+import { StyledTitle } from 'src/components/styled/title/title';
 import { commonStyles } from 'src/styles';
 import { useSubmitApiKey } from './hooks/useSubmitApiKey';
 
@@ -14,52 +16,15 @@ const RESAS_REGISTER_PAGE_URL = 'https://opendata.resas-portal.go.jp/form.html';
 const styles = {
   foundation: css`
     height: calc(100vh - ${commonStyles.headerHeight} - ${commonStyles.footerHeight});
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${commonStyles.flexRowDefault}
   `,
   container: css`
     width: 30rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    ${commonStyles.flexColumnDefault}
 
-    // border: 1px solid;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     padding-bottom: ${32 / 16}rem;
-  `,
-  title: css`
-    margin: 0; // 縦幅リセット
-    padding-top: ${24 / 16}rem;
-  `,
-  description: css`
-    font-size: ${18 / 16}rem;
-    margin-bottom: ${4 / 16}rem;
-  `,
-  form: css`
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-    padding: 1.5rem 2rem 1rem 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    & > :not(:last-child) {
-      margin-bottom: 1rem;
-    }
-
-    position: relative;
-  `,
-  formLabel: css`
-    font-size: ${16 / 16}rem;
-    background-color: white;
-    padding: 1px 3px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-50%) translateX(${12 / 16}rem);
   `
 };
 
@@ -81,9 +46,20 @@ export const LoginPage = () => {
   return (
     <div css={styles.foundation}>
       <div css={styles.container}>
-        <h2 css={styles.title}>利用開始画面</h2>
-
-        <p css={styles.description}>利用には RESAS API キーが必要です</p>
+        <StyledTitle
+          css={css`
+            padding-top: ${24 / 16}rem;
+          `}
+        >
+          利用開始画面
+        </StyledTitle>
+        <StyledDescription
+          css={css`
+            margin-bottom: ${4 / 16}rem;
+          `}
+        >
+          利用には RESAS API キーが必要です
+        </StyledDescription>
         <ExternalTextLink
           beforeLabel='※RESAS API キー の取得は'
           linkLabel='こちら'
@@ -94,14 +70,13 @@ export const LoginPage = () => {
             margin-bottom: 2rem;
           `}
         />
-        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <LabelForm label='RESAS API キーを入力してください' onSubmit={onSubmitApiKey}>
-          <InputTextField
+          <StyledInputTextField
             placeholder='API キー'
             value={apiKey}
             type='password'
             onChange={onInputApiKey}
-            additionalStyles={css`
+            css={css`
               width: 16rem;
               height: ${36 / 16}rem;
             `}

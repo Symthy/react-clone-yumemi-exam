@@ -1,13 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { css, SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { StyledProps } from 'src/components/styled/types';
 
-type InputTextFieldProps = {
-  additionalStyles?: SerializedStyles;
-};
-
-export const InputTextField = styled.input(
-  (props: InputTextFieldProps) => css`
+export const StyledInputTextField = styled.input(
+  (props: StyledProps) => css`
     width: 16rem;
     border: none;
     border-radius: ${4 / 16}rem;
@@ -16,6 +13,6 @@ export const InputTextField = styled.input(
     :focus {
       outline: solid 2px dodgerblue;
     }
-    ${props.additionalStyles}
+    ${props.css}
   `
 );

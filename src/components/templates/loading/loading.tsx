@@ -1,9 +1,9 @@
 import { Oval } from 'react-loader-spinner';
 import { css } from '@emotion/react';
+import { commonStyles } from 'src/styles';
 
 const styles = css`
-  display: flex;
-  justify-content: center;
+  ${commonStyles.flexRowDefault}
 `;
 
 export const Loading = () => (

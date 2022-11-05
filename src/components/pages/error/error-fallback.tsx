@@ -3,27 +3,27 @@ import { css } from '@emotion/react';
 import { HiXCircle } from 'react-icons/hi';
 import { Button } from 'src/components/elements/button';
 import { TitleBodyLayout } from 'src/components/templates/title-body-layout';
-import { useRedirectTop } from 'src/routes/useRedirectTop';
+import { useRedirectTop } from 'src/routes/hooks/useRedirectTop';
+import { commonStyles } from 'src/styles';
 
 const styles = {
   container: css`
     margin-top: 2rem;
   `,
-  title: css`
+  summary: css`
     display: inline-flex;
     align-items: center;
     margin-left: 0.5rem;
   `,
-  titleLabel: css`
+  summaryLabel: css`
     margin: 0;
     margin-left: 0.5rem;
   `,
-  description: css`
+  detail: css`
     margin-left: 1.2rem;
   `,
   btnArea: css`
-    display: flex;
-    justify-content: center;
+    ${commonStyles.flexRowDefault}
     margin: 1rem 0;
   `
 };
@@ -32,11 +32,11 @@ export const ErrorFallback = ({ error }: FallbackProps) => {
   const redirector = useRedirectTop();
   return (
     <div css={styles.container}>
-      <div css={styles.title}>
+      <div css={styles.summary}>
         <HiXCircle color='#e41010' size={30} />
-        <h2 css={styles.titleLabel}>予期せぬエラーが発生しました</h2>
+        <h2 css={styles.summaryLabel}>予期せぬエラーが発生しました</h2>
       </div>
-      <div css={styles.description}>
+      <div css={styles.detail}>
         <p>Internal Server Error の場合はしばらく待ってから再度実行してください</p>
         <p>そうでない場合、Github Issues もしくは Twitter から製作者に問い合わせてください</p>
       </div>

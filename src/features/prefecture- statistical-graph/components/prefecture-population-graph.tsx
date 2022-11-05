@@ -6,6 +6,7 @@ import { RadioButtons, useRadioState } from 'src/components/elements/radio-butto
 import { Loading } from 'src/components/templates/loading';
 import { MultiLineChart } from 'src/components/templates/multi-line-chart';
 import { TitleBodyLayout } from 'src/components/templates/title-body-layout';
+import { commonStyles } from 'src/styles';
 import { Prefecture } from 'src/types';
 import { usePopulationsQueries } from '../api/usePopulationsQueries';
 import { convertToMultiLineInput as convertToMultiLineInputData } from '../hooks/converter';
@@ -17,9 +18,7 @@ type PrefecturePopulationGraphProps = {
 
 const styles = {
   container: css`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    ${commonStyles.flexColumnDefault}
   `,
   noData: css`
     display: inline-flex;

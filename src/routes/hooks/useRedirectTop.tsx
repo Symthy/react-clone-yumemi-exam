@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { LOGIN_PATH } from './consts';
+import { LOGIN_PATH } from '../consts';
 
 export const useRedirectTop = () => {
   const navigate = useNavigate();

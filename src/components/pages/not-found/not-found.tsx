@@ -1,12 +1,11 @@
 import { css } from '@emotion/react';
 import { Button } from 'src/components/elements/button';
-import { useRedirectTop } from 'src/routes/useRedirectTop';
+import { useRedirectTop } from 'src/routes/hooks/useRedirectTop';
+import { commonStyles } from 'src/styles';
 
 const styles = {
   container: css`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    ${commonStyles.flexColumnDefault}
     align-content: space-around;
   `,
   titleNum: css`

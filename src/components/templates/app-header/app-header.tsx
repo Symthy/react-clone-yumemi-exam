@@ -5,10 +5,9 @@ import { commonStyles } from 'src/styles';
 
 const styles = {
   container: css`
-    height: ${commonStyles.headerHeight};
-    display: flex;
+    ${commonStyles.flexRowDefault}
     justify-content: space-between;
-    align-items: center;
+    height: ${commonStyles.headerHeight};
     border: 1px solid;
     border-width: 2px 0;
     background-color: ${commonStyles.themeColor};
@@ -20,9 +19,8 @@ const styles = {
   `,
   links: css`
     margin-right: 1rem;
-    display: flex;
+    ${commonStyles.flexRowDefault}
     justify-content: flex-end;
-    align-items: center;
   `
 };
 

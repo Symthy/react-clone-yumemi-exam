@@ -4,9 +4,7 @@ import { commonStyles } from 'src/styles';
 
 const styles = {
   container: css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${commonStyles.flexRowDefault}
     flex-wrap: wrap;
     width: fit-content;
     border: 0.5px solid ${commonStyles.themeColor};
