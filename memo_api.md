@@ -138,7 +138,7 @@ axios.interceptors.response.use(
 );
 ```
 
-React の フックで使う場合は以下のようにする
+React の フックで使う場合は以下のようにする ※ただし、こうする必要があるかは考えた方がいい
 
 ```typescript
 export function AxiosClientProvider({ children }: { children: React.ReactElement }) {

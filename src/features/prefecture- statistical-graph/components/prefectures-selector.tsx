@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { css } from '@emotion/react';
-import { Loading } from 'src/components/templates/loading';
+import { Loading } from 'src/components/elements/loading';
+import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
 import { SelectionArea } from 'src/components/templates/selection-area/selection-area';
-import { TitleBodyLayout } from 'src/components/templates/title-body-layout';
 import { Prefecture, PrefectureResponeseResult } from 'src/types';
 import { usePrefecturesQuery } from '../api/usePrefecturesQuery';
 import { convertToSelectableItems } from '../hooks/converter';

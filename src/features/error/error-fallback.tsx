@@ -2,7 +2,7 @@ import { FallbackProps } from 'react-error-boundary';
 import { css } from '@emotion/react';
 import { HiXCircle } from 'react-icons/hi';
 import { Button } from 'src/components/elements/button';
-import { TitleBodyLayout } from 'src/components/templates/title-body-layout';
+import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
 import { useRedirectTop } from 'src/routes/hooks/useRedirectTop';
 import { commonStyles } from 'src/styles';
 

@@ -7,7 +7,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { ResasApiClient } from 'src/api/resasApiClient';
 import * as useResasApiClientModule from 'src/api/useResasApiClient';
 import * as reactQueryModule from 'src/libs/react-query';
-import * as redirectorModule from 'src/routes/useRedirectAfterLogin';
+import * as redirectorModule from 'src/routes/hooks/useRedirectAfterLogin';
 import { useSubmitApiKey } from './useSubmitApiKey';
 import * as validaterModule from './validator';
 

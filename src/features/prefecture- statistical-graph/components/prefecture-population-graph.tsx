@@ -2,10 +2,10 @@
 import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
+import { Loading } from 'src/components/elements/loading';
 import { RadioButtons, useRadioState } from 'src/components/elements/radio-buttons';
-import { Loading } from 'src/components/templates/loading';
+import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
 import { MultiLineChart } from 'src/components/templates/multi-line-chart';
-import { TitleBodyLayout } from 'src/components/templates/title-body-layout';
 import { commonStyles } from 'src/styles';
 import { Prefecture } from 'src/types';
 import { usePopulationsQueries } from '../api/usePopulationsQueries';

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { NotFoundPage } from 'src/components/pages/not-found/not-found';
 import { LoginPage } from 'src/features/login';
 import { PrefectureGraphPage } from 'src/features/prefecture- statistical-graph';
+import { NotFoundPage } from 'src/routes/not-found/not-found';
 import { LOGIN_PATH, PREFECTURE_POPULATION_VIEW_PATH } from './consts';
 import { RequireApiKey } from './require-api-key';
 

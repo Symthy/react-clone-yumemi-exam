@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { ApiClientProvider } from 'src/api/ApiClientProvider';
-import { AppHeader } from 'src/components/templates/app-header';
+import { AppHeader } from 'src/components/layouts/app-header';
 import { LoginPage } from './login-page';
 
 export default { component: LoginPage } as ComponentMeta<typeof LoginPage>;

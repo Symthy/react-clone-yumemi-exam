@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { cssMerger } from '../builder';
+import { cssMergerSupplier } from '../supplier';
 
 export const StyledDescription = styled.p(
-  cssMerger(css`
+  cssMergerSupplier(css`
     font-size: ${18 / 16}rem;
   `)
 );

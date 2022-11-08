@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { AppHeader } from 'src/components/templates/app-header';
+import { AppHeader } from 'src/components/layouts/app-header';
 import { ErrorFallback } from './error-fallback';
 
 export default { component: ErrorFallback } as ComponentMeta<typeof ErrorFallback>;

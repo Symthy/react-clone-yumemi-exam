@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { cssMerger } from '../builder';
+import { cssMergerSupplier } from '../supplier';
 
 export const StyledTitle = styled.h2(
-  cssMerger(css`
+  cssMergerSupplier(css`
     margin: 0; // 縦幅リセット
   `)
 );
