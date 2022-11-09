@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { setupWorker } from 'msw';
+import { setupWorker, SetupWorkerApi } from 'msw';
 import { handlers } from './handlers';
 
-export const worker = setupWorker(...handlers);
+export const browser = setupWorker(...handlers);
+
+export const buildMswWorker = (): SetupWorkerApi => browser;

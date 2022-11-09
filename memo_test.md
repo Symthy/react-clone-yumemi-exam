@@ -194,6 +194,27 @@ server.use(
 
 ref: [jest における MSW の活用事例](https://zenn.dev/takepepe/articles/jest-msw-mocking)
 
+### Dynamic Import
+
+dynamic import することで msw を使用しない場合にバンドルに含まれないようにできる
+
+ref: [react+vite を playwright+msw で自動テストする](https://zenn.dev/dyoshikawa/articles/07ab82a5cbcde0)
+
+```typescript
+if (import.meta.env.VITE_STARTUP_MSW === 'true') {
+  const { buildMswWorker } = await import('./mocks/browser');
+  const worker = buildMswWorker();
+  await worker.start();
+}
+```
+
+```typescript
+export const buildMswWorker = (): SetupWorkerApi => {
+  const worker = setupWorker(...handlers);
+  return worker;
+};
+```
+
 ## E2E テスト
 
 以下４つの比較がある
