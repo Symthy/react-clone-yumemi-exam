@@ -24,7 +24,7 @@ export const NotFoundPage = () => {
     <div css={styles.container}>
       <div css={styles.titleNum}>404</div>
       <div css={styles.titleStr}>Not Found</div>
-      <Button label='トップへ戻る' type='button' onClick={() => redirector()} />
+      <Button label='トップへ戻る' type='button' onClick={redirector} />
     </div>
   );
 };

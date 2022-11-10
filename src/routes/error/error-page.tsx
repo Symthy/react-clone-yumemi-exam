@@ -28,7 +28,7 @@ const styles = {
   `
 };
 
-export const ErrorFallback = ({ error }: FallbackProps) => {
+export const ErrorPage = ({ error }: FallbackProps) => {
   const redirector = useRedirectTop();
   return (
     <div css={styles.container}>
@@ -50,7 +50,7 @@ export const ErrorFallback = ({ error }: FallbackProps) => {
         <pre>{error.message}</pre>
       </TitleBodyLayout>
       <div css={styles.btnArea}>
-        <Button label='トップへ戻る' type='button' onClick={() => redirector()} />
+        <Button label='トップへ戻る' type='button' onClick={redirector} />
       </div>
     </div>
   );

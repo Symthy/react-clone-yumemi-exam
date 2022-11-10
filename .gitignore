@@ -28,3 +28,9 @@ storybook-static
 
 # conf
 conf/api.conf
+
+# playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+tests-examples/

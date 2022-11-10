@@ -28,7 +28,7 @@
 この度、React を学習しようとした理由は大きく３つ。
 
 - 業務で React を使用する機会がありそうだったこと。(残念ながらその機会は訪れず半分無駄となったが)
-- フロントエンドの実務経験が、大規模レガシー SPA（jQuery ＋ HTML テンプレート）の改修/バグ修正 ＋ Graphana のカスタムプラグイン改修での HTML/CSS/JS 修正少々のみであること。フロントエンドが多少なりともできると言えるためには Vue/React/Angular/Svelte 等のライブラリ/フレームワークが使える必要があると思っており、そのレベルには到達しておきたかったため。
+- フロントエンドの実務経験が、大規模レガシー SPA（jQuery ＋ HTML テンプレート）の改修/バグ修正 ＋ Grafana のカスタムプラグイン改修での HTML/CSS/JS 修正少々のみであること。フロントエンドが多少なりともできると言えるためには Vue/React/Angular/Svelte 等のライブラリ/フレームワークが使える必要があると思っており、そのレベルには到達しておきたかったため。
 - 以下の点から、いずれは通らなければならない道であったこと。
   - 自身が個人で作ろうとしているプロダクトを開発する上で、かなりユーザビリティが良い GUI が必要であること
   - (CLI ツールはいくつか作ってきたが) GUI ツールを作れないと作れる物の幅が広がらないこと
@@ -157,7 +157,7 @@ export const PrefecturesSelector = ({ prefectures, setPrefectures }: Prefectures
 
 アプリが必要とする機能は「都道府県別人口グラフを表示する」機能であるため、この機能を構成するコンポーネントや hooks は部品と考えると、この機能を構成する３つのコンポーネント＆hooks をある意味バラけさせていたのが良くない。故に features フォルダを導入し、1 機能を構成する部品として 1 箇所に集約した。
 
-そうすることで、当初の違和感を解消し、まとまりのある構成にすることができた。（ついてでに hooks も以下の通り、state と state を更新するロジックがひとまとまりになり、自然な形となった）
+そうすることで、当初の違和感を解消し、まとまりのある構成にすることができた。（ついでに hooks も以下の通り、state と state を更新するロジックがひとまとまりになり、自然な形となった）
 
 ```typescript
 export const PrefectureGraphPage = () => {
@@ -196,7 +196,7 @@ export const PrefecturesSelector = ({
 };
 ```
 
-※ useEffect をカスタムフックから外出ししたのは、1 コンポーネントに useEffect は 1 つ
+※ useEffect をカスタムフックから外出ししたのは、1 コンポーネントに useEffect は 1 つまでにした方が良いとのことなので、カスタムフック内に入れて意図せず useEffect を複数使うような事に繋がらないよう、コンポーネント内に記載し、useEffect に渡すロジックの方をカスタムフックで定義するようにした。
 
 ページコンポーネント(prefecture-statistical-graph-page)に presentation/container パターンを導入し、の presentation を pages 下に container と 部品を models に配置といったような手も選択肢として挙げることはできるかもしれないが、presentation/container パターンを導入する程の規模でもなく導入しても冗長かつ不要に複雑化を招く元になるため、今回は機能に関する物(知識)を 1 箇所に集約することを重視した。
 
@@ -252,9 +252,9 @@ Global State は大きく 2 種に分類できる
 
 今回は、 React 外のストアは不要かつ、軽量なものでよいため、Jotai を選択した。
 
-が、グローバルで管理するものは１つだけだったため、これも過剰で Context で十分だったように思う（改善項目）
+が、グローバルで管理するものが１つだけだったため、これも過剰で Context で十分だったように思う（改善項目）
 
-※ Context を使用する上で工夫方法は以下が参考になる
+※ Context を使用する上での工夫方法は以下が参考になる
 
 refs:
 
@@ -265,6 +265,46 @@ refs:
 - useContext の書き味が気に入らなければ、工夫次第で解決できる可能性がある：https://github.com/streamich/react-use/blob/master/src/factory/createStateContext.ts
 
 ## エラーハンドリング
+
+React-Query でのエラーハンドリングに関しては以下が参考となった。
+
+ref: [React Query Error Handling](https://tkdodo.eu/blog/react-query-error-handling#error-boundaries)
+
+今回は、エラーケースを以下の通りに分類して実装をした。
+
+- Client Error (400 番系)
+  - 継続可能エラー として、Toast でエラーを表示するのみ（操作は引き続き可能）
+- Server Error (500 番系) + その他予期せぬエラー(バグ)
+  - 継続不能エラー として、エラー画面に遷移
+
+API エラーレスポンスの振り分けは React-Query (Tanstack-Query) のオプションで実現した。
+
+```typescript
+export const errorBoundaryOption = {
+  useErrorBoundary: (err: Error) => !(err instanceof ApiClientError),
+  onError: (err: Error) => {
+    if (err instanceof ApiClientError) {
+      onCustomToaster(err); // Toast を表示
+    }
+  }
+};
+```
+
+上記オプション利用側
+
+```typescript
+import { useQuery } from '@tanstack/react-query';
+
+const queryResult = useQuery<PrefectureResponeseResult[], Error | ApiClientError>(
+  [PREFECTURES_QUERY_KEY],
+  async () => apiClient.getPrefectures(),
+  errorBoundaryOption
+);
+```
+
+エラー画面の遷移には ErrorBoundary を利用して実現している。
+
+※エラー画面には「トップに戻る」ボタンを用意しており、ボタン押下でトップ画面に戻った後は、ブラウザの戻るボタンを押しても、エラー画面には戻らないようにしている。不必要に(継続不能エラーが起きた時以外)エラー画面を開くことがないようにするためと考えて
 
 ## CSS
 
@@ -281,7 +321,7 @@ CSS in JS は、移植性の観点から emotion > styled-component と速攻で
 CSS modules でも十分と思ったが以下の点から先を見据えて、かつパフォーマンスが CSS Modules > CSS in JS といえど今回の作成物では問題にならない程度と判断し emotion を使用することとした。
 
 - (今後今回の作成物を実験台にしようと思っていることもあり) theme（ノーマルモード/ダークモード）の導入を行いたいと考えている (CSS Modules でもできなくはないが手間が大きいらしい)
-- (実際にやってみて特に感じたことだが) 1 ファイルに HTML と CSS 両方ある方が開発しやすく、CSS Modules の場合命名規則をどうするかを悩んだがそこに悩むのが嫌であった (開発者体験を優先)
+- (実際にやってみて特に感じたことだが) 1 ファイルに HTML と CSS 両方ある方が開発しやすく、CSS Modules の場合命名規則をどうするかを悩んだがそこに悩むのも嫌であった (開発者体験を優先)
 - CSS Modules を使用する上でフォーマット等に使用したい Stylelint がまだ ESM 未対応(2022/11/6 時点) ref: [stylelint: Move to ESM ](https://github.com/stylelint/stylelint/issues/5291)
   ※結局使用している別の何かが ESM 未対応のため、ESM に移行しきれていない
 
@@ -301,7 +341,7 @@ ref: [The Pros and Cons of Using Styled Components in React](https://www.makeuse
     - ダーク テーマやその他のテーマをアプリケーションに追加するのは難しく時間がかかるが、容易に実現できる
 - デメリット
   - JS で CSS を書くと、将来的に 2 つを分離することが難しくなり、保守性が大幅に低下する（例：JavaScript フレームワークを切り替える場合、ほとんどのコードベースを書き直す必要がでてくる）※CSS モジュールや emotion のようなライブラリを使用すれば将来性は高まる
-  - 読みにくい場合がある
+  - ★ 読みにくい場合がある
     - Styled Component と React Component を区別することは、特にアトミックデザインシステムの外では難しい場合がある
     - Styled Component のみをラッパーとして使用し、その中の要素にセマンティック HTML タグを使用することで、この問題を解決はできる。以下のように別ファイルに分けるとより明確にできる
 
@@ -310,8 +350,6 @@ import * as styled from './styled';
 // use styled.components
 <styled.Main>{code}</styled.Main>;
 ```
-
-やはり気を付けなければ可読性は悪くなるようである。
 
 更に、デメリットとして、Styled Components は簡単すぎて、初歩の構造を隠蔽する事が挙げられるとのこと。
 
@@ -359,11 +397,11 @@ export const Button = React.forwardRef<Ref, Props>((props, ref) => {
   - (とは言っても 1 HTML 要素 に 多くの CSS を設定する/それを再利用する場合には、利用したくなるように思うため)、コンポーネント名に 接頭辞 (例：Styled) を付けるなど、見分けやすくするための規約を定める
   - (見た目だけ加工したコンポーネントと、ロジックを伴うコンポーネントをパッと見で見分けにくいのが一番の問題と感じたため)presentation/container パターンを適用して、presentation コンポーネント側に隔離する
 
-等、使用範囲の限定や見分けやすくすための規約が必要に思う。※今回は試したいがためにわざと一部に styled components を使用し、2 点目の方針を採用している。今回作成したものに関しては基本的に styled components を使用して旨味のある箇所がないためわざと使用した部分以外には使用していない。
+など、使用範囲の限定や見分けやすくすための規約が必要に思う。※今回は試したいがためにわざと一部に styled components を使用し、2 点目の方針を採用している。今回作成したものに関しては基本的に styled components を使用して旨味のある箇所がないためわざと使用した部分以外には使用していない。
 
-また、わざと使用した部分に関しては margin や padding 等の余白調整をするためのスタイル(ユーティリティ層相当の物)は外側から注入して使用する場所の枠に応じて調整できるようにするのがコンポーネントの再利用性を高くできる。
+また、わざと使用した部分に関しては margin や padding 等の余白調整をするためのスタイル(ユーティリティ層相当の物)は外側から注入できるようにしている。コンポーネントを使用したい場所の枠に応じて幅/余白等を調整できるようにするとコンポーネントの再利用性が増す。
 
-とはいえ、毎度以下のように書くのは面倒なため
+外からスタイルを注入できるようにしようとすると、以下のようになる訳だが、毎度以下のように書くのは面倒なため
 
 ```typescript
 export const StyledTitle = styled.h2(
@@ -379,7 +417,7 @@ export type StyledProps = {
 };
 ```
 
-以下のようなちょっとした工夫を入れた
+以下のようなちょっとした共通化の工夫は入れた。
 
 ```typescript
 export const StyledTitle = styled.h2(
@@ -401,6 +439,49 @@ export const cssMerger = (styles: SerializedStyles) => (props: StyledProps) =>
 
 将来利用する可能性があるとはいえ、必要になってから入れるとしても何ら問題はないため、利用する時になってから導入することとした。
 
+- 各コンポーネントでの CSS の定義
+  - 基本的に styled components は使わず、各コンポーネントに以下のように固めて定義している
+  - ※CSS は、子要素のスタイルを設定するときに親要素のスタイルの内容も考慮する必要があるため、個人的には以下のように(コンポーネント内の全要素の)CSS が一か所まとまっている方が調整がしやすいと思っている
+
+```typescript
+const styles = {
+  foundation: css`
+    box-sizing: content-box;
+  `,
+  container: css`
+    box-sizing: content-box;
+    position: relative;
+  `,
+  border: css`
+    border: 1px solid ${commonStyles.themeColor};
+  `,
+  title: css`
+    background-color: white;
+    padding: 1px 3px;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-50%) translateX(${10 / 16}rem);
+  `,
+  body: css`
+    padding: 1rem;
+  `
+};
+
+export const TitleBodyLayout = ({ title, children, existsBorder = false, additionalStyles }: TitleBodyLayoutProps) => {
+  const containerStyles = existsBorder ? [styles.container, styles.border] : [styles.container];
+  return (
+    <div css={[styles.foundation, additionalStyles]}>
+      <div css={containerStyles}>
+        <p css={styles.title}>{title}</p>
+        <div css={styles.body}>{children}</div>
+      </div>
+    </div>
+  );
+};
+```
+
 ## テスト
 
 Todo: 近日記載
@@ -421,7 +502,7 @@ ref: [React で gh-pages にデプロイしたとき、直接 URL を踏むと 4
 
 [rafgraph/spa-github-pages](https://github.com/rafgraph/spa-github-pages)
 
-Vite を使使用している場合 そのままではリダイレクト先が https://username.github.io/?/repo-name/ になってしまうため 404.html 内の `var pathSegmentsToKeep` を 1 にする（ そうすれば https://username.github.io/repo-name/?/ になり正常に動く）
+Vite を使用している場合 そのままではリダイレクト先の URL が `https://username.github.io/?/repo-name/` になってしまうため 404.html 内の `var pathSegmentsToKeep` を 1 にする（ そうすれば URL が `https://username.github.io/repo-name/?/` になり正常に動く）
 
 ### Github Pages 時のみ専用スクリプトを取り込む
 
@@ -494,3 +575,7 @@ Suspsense について
 - useQueries の対応が完全ではない？ようなので導入見送り
   ref: [TanStack/query#1523](https://github.com/TanStack/query/issues/1523)
 - そもそも Suspsense 導入できるコンポーネントが 1/3 のため導入するメリットも今はあまりない（必要になったらで良い）
+
+## さいごに
+
+Todo

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { LOGIN_PATH } from '../consts';
+import { ROOT_PATH } from '../consts';
 
 export const useRedirectTop = () => {
   const navigate = useNavigate();
-  const redirector = () => navigate(LOGIN_PATH, { replace: true });
+  const redirector = () => navigate(ROOT_PATH, { replace: true });
   return redirector;
 };
 

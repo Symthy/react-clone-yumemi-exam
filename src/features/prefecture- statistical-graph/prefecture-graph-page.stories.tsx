@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { mockPrefecturesForbiddenHandler, mockPrefecturesServerErrorHandler } from 'src/mocks/handlers';
-import { ErrorFallback } from '../error';
+import { ErrorPage } from '../../routes/error';
 import { PrefectureGraphPage } from './prefecture-graph-page';
 
 export default { component: PrefectureGraphPage } as ComponentMeta<typeof PrefectureGraphPage>;
@@ -52,7 +52,7 @@ export const ServerError: ComponentStoryObj<typeof PrefectureGraphPage> = {
       const queryClient = new QueryClient();
       return (
         <BrowserRouter>
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <ErrorBoundary FallbackComponent={ErrorPage}>
             <QueryClientProvider client={queryClient}>
               <Story />
             </QueryClientProvider>
