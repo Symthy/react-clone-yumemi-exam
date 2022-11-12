@@ -7,6 +7,7 @@ type UseResasApiClientReturns = {
   initialized: boolean;
   apiClient: ResasApiClient;
   setApiKey: (apiKey: string) => void;
+  resetApiKey: () => void;
 };
 
 export const useResasApiClient = (): UseResasApiClientReturns => {
@@ -15,8 +16,11 @@ export const useResasApiClient = (): UseResasApiClientReturns => {
   const setApiKey = (apiKey: string) => {
     setApiClient(new ResasApiClient(apiKey));
   };
+  const resetApiKey = () => {
+    setApiClient(new ResasApiClient());
+  };
   const initialized = apiClient.initialized();
-  return { initialized, apiClient, setApiKey };
+  return { initialized, apiClient, setApiKey, resetApiKey };
 };
 
 // if used zustand

@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import env from 'vite-plugin-env-compatible'; // ref: https://qiita.com/diskszk/items/ed6362e35e15f2fd790e
 
 // ref: https://dev.classmethod.jp/articles/vite-index-html-read-env-variables/
 // ref: https://vitejs.dev/guide/api-plugin.html#transformindexhtml
@@ -33,6 +34,11 @@ export default defineConfig({
           }
     }
   },
-  plugins: [react({ jsxImportSource: '@emotion/react' }), tsconfigPaths(), htmlPlugin()],
+  plugins: [
+    react({ jsxImportSource: '@emotion/react' }),
+    tsconfigPaths(),
+    htmlPlugin(),
+    env({ prefix: 'VITE', mountedPath: 'process.env' })
+  ],
   base: process.env.GITHUB_PAGES ? 'react-clone-yumemi-exam' : './' // Github Pages 用　ref: https://zenn.dev/shivase/articles/009-react-vite-githubpages
 });

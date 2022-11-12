@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { mockPrefecturesForbiddenHandler, mockPrefecturesServerErrorHandler } from 'src/mocks/handlers';
-import { ErrorPage } from '../../routes/error';
+import { ErrorPage } from '../../routes/components/error';
 import { PrefectureGraphPage } from './prefecture-graph-page';
 
 export default { component: PrefectureGraphPage } as ComponentMeta<typeof PrefectureGraphPage>;

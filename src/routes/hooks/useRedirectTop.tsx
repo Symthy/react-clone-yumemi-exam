@@ -1,9 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+import { useResasApiClient } from 'src/api/useResasApiClient';
 import { ROOT_PATH } from '../consts';
 
 export const useRedirectTop = () => {
+  const { resetApiKey } = useResasApiClient();
   const navigate = useNavigate();
-  const redirector = () => navigate(ROOT_PATH, { replace: true });
+  const redirector = () => {
+    resetApiKey();
+    navigate(ROOT_PATH, { replace: true });
+  };
   return redirector;
 };
 

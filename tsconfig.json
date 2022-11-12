@@ -23,6 +23,6 @@
       "public/*": ["public/*"]
     }
   },
-  "include": ["src/**/*", "vite.config.ts"],
+  "include": ["src/**/*", "vite.config.ts", "e2e/index.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

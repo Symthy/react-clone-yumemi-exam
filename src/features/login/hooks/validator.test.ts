@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 import { RESAS_API_ENDPOINT, RESAS_API_PREFECTURES_PATH } from 'src/api/constants';
+import { ApiClientError, ApiServerError } from 'src/api/error';
 import { ResasApiClient } from 'src/api/resasApiClient';
 import * as toastModule from 'src/libs/toast';
 import { forbiddenBody } from 'src/mocks/resolvers/errorForbidden';
@@ -22,7 +23,6 @@ describe('validate api key test', () => {
   test('key valid case', async () => {
     const apiClient = new ResasApiClient('dummy-key');
     await expect(validateApiKey(apiClient)).resolves.toBe(true);
-    expect(spiedOnCustomToaster).toHaveBeenCalledTimes(0);
   });
 
   test('key invalid case', async () => {
@@ -32,9 +32,7 @@ describe('validate api key test', () => {
       )
     );
     const apiClient = new ResasApiClient('dummy-key');
-    const result = await validateApiKey(apiClient);
-    expect(result).toBe(false);
-    expect(spiedOnCustomToaster).toHaveBeenCalled();
+    await expect(validateApiKey(apiClient)).rejects.toThrow(ApiClientError);
   });
 
   test('unexpected error case', async () => {
@@ -44,7 +42,6 @@ describe('validate api key test', () => {
       )
     );
     const apiClient = new ResasApiClient('dummy-key');
-    await expect(validateApiKey(apiClient)).rejects.toThrow(Error);
-    expect(spiedOnCustomToaster).toHaveBeenCalledTimes(0);
+    await expect(validateApiKey(apiClient)).rejects.toThrow(ApiServerError);
   });
 });

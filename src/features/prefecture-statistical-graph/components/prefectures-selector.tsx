@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { Loading } from 'src/components/elements/loading';
 import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
 import { SelectionArea } from 'src/components/templates/selection-area/selection-area';
+import { makeAttrForTest } from 'src/fixture/attributeBuilder';
 import { Prefecture, PrefectureResponeseResult } from 'src/types';
 import { usePrefecturesQuery } from '../api/usePrefecturesQuery';
 import { convertToSelectableItems } from '../hooks/converter';
@@ -33,6 +34,7 @@ export const PrefecturesSelector = ({
       additionalStyles={css`
         padding: 2rem 1.6rem 0 1.6rem;
       `}
+      {...makeAttrForTest('pref-list-title')}
     >
       {isLoading ? (
         <Loading />

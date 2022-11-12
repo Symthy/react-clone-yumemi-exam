@@ -8,6 +8,7 @@ import { LabelForm } from 'src/components/elements/label-form';
 import { StyledDescription } from 'src/components/styled/description';
 import { StyledInputTextField } from 'src/components/styled/input-text-field';
 import { StyledTitle } from 'src/components/styled/title/title';
+import { makeAttrForTest } from 'src/fixture/attributeBuilder';
 import { commonStyles } from 'src/styles';
 import { useSubmitApiKey } from './hooks/useSubmitApiKey';
 
@@ -50,6 +51,7 @@ export const LoginPage = () => {
           css={css`
             padding-top: ${24 / 16}rem;
           `}
+          {...makeAttrForTest('login-page-title')}
         >
           利用開始画面
         </StyledTitle>
@@ -80,8 +82,14 @@ export const LoginPage = () => {
               width: 16rem;
               height: ${36 / 16}rem;
             `}
+            {...makeAttrForTest('login-apikey-field')}
           />
-          <Button label='利用開始' type='submit' suffix={<BiLogIn size={`${22 / 16}rem`} color='white' />} />
+          <Button
+            label='利用開始'
+            type='submit'
+            suffix={<BiLogIn size={`${22 / 16}rem`} color='white' />}
+            {...makeAttrForTest('login-btn')}
+          />
         </LabelForm>
       </div>
     </div>

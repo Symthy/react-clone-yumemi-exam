@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { HiXCircle } from 'react-icons/hi';
 import { Button } from 'src/components/elements/button';
 import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
+import { makeAttrForTest } from 'src/fixture/attributeBuilder';
 import { useRedirectTop } from 'src/routes/hooks/useRedirectTop';
 import { commonStyles } from 'src/styles';
 
@@ -34,7 +35,9 @@ export const ErrorPage = ({ error }: FallbackProps) => {
     <div css={styles.container}>
       <div css={styles.summary}>
         <HiXCircle color='#e41010' size={30} />
-        <h2 css={styles.summaryLabel}>予期せぬエラーが発生しました</h2>
+        <h2 css={styles.summaryLabel} {...makeAttrForTest('error-page-title')}>
+          予期せぬエラーが発生しました
+        </h2>
       </div>
       <div css={styles.detail}>
         <p>Internal Server Error の場合はしばらく待ってから再度実行してください</p>
@@ -50,7 +53,7 @@ export const ErrorPage = ({ error }: FallbackProps) => {
         <pre>{error.message}</pre>
       </TitleBodyLayout>
       <div css={styles.btnArea}>
-        <Button label='トップへ戻る' type='button' onClick={redirector} />
+        <Button label='トップへ戻る' type='button' onClick={redirector} {...makeAttrForTest('top-return-btn')} />
       </div>
     </div>
   );

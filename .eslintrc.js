@@ -149,6 +149,7 @@ module.exports = {
           some: ['nesting', 'id']
         }
       }
-    ]
+    ],
+    'react/jsx-props-no-spreading': 'off' // spread構文でエラーが出るため抑止
   }
 };

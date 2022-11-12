@@ -3,14 +3,24 @@ import ReactDOM from 'react-dom/client';
 import { App } from './App';
 import './index.css';
 
-if (import.meta.env.VITE_STARTUP_MSW === 'true') {
-  const { buildMswWorker } = await import('./mocks/browser');
-  const worker = buildMswWorker();
-  await worker.start();
+// eslint-disable-next-line consistent-return
+async function prepare() {
+  if (process.env.VITE_STARTUP_MSW === 'true') {
+    const { worker } = await import('./mocks/browser');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (window.Cypress) window.appReady = true; // wait startup for e2e test by Cypress
+    return worker.start({}).then(() => {
+      worker.printHandlers();
+      return null;
+    });
+  }
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+void prepare().then(() => {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+});

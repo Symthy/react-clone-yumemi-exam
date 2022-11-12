@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { Button } from 'src/components/elements/button';
+import { makeAttrForTest } from 'src/fixture/attributeBuilder';
 import { useRedirectTop } from 'src/routes/hooks/useRedirectTop';
 import { commonStyles } from 'src/styles';
 
@@ -23,8 +24,10 @@ export const NotFoundPage = () => {
   return (
     <div css={styles.container}>
       <div css={styles.titleNum}>404</div>
-      <div css={styles.titleStr}>Not Found</div>
-      <Button label='トップへ戻る' type='button' onClick={redirector} />
+      <div css={styles.titleStr} {...makeAttrForTest('not-found-label')}>
+        Not Found
+      </div>
+      <Button label='トップへ戻る' type='button' onClick={redirector} {...makeAttrForTest('top-return-btn')} />
     </div>
   );
 };

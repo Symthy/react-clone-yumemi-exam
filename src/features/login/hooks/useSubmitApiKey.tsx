@@ -1,8 +1,10 @@
 import { FormEvent } from 'react';
 import { useErrorHandler } from 'react-error-boundary';
+import { ApiClientError } from 'src/api/error';
 import { ResasApiClient } from 'src/api/resasApiClient';
 import { useResasApiClient } from 'src/api/useResasApiClient';
 import { resetQueryCache } from 'src/libs/react-query';
+import { onCustomToaster } from 'src/libs/toast';
 import { useRedirectAfterLogin } from 'src/routes/hooks/useRedirectAfterLogin';
 import { validateApiKey } from './validator';
 
@@ -22,7 +24,13 @@ export const useSubmitApiKey = (apiKey: string) => {
           redirector();
         }
       })
-      .catch((err) => errHandler(err));
+      .catch((err) => {
+        if (err instanceof ApiClientError) {
+          onCustomToaster(err);
+          return;
+        }
+        errHandler(err);
+      });
   };
   return { onSubmitApiKey };
 };

@@ -34,10 +34,16 @@ type TitleBodyLayoutProps = {
   additionalStyles?: SerializedStyles;
 };
 
-export const TitleBodyLayout = ({ title, children, existsBorder = false, additionalStyles }: TitleBodyLayoutProps) => {
+export const TitleBodyLayout = ({
+  title,
+  children,
+  existsBorder = false,
+  additionalStyles,
+  ...props
+}: TitleBodyLayoutProps) => {
   const containerStyles = existsBorder ? [styles.container, styles.border] : [styles.container];
   return (
-    <div css={[styles.foundation, additionalStyles]}>
+    <div css={[styles.foundation, additionalStyles]} {...props}>
       <div css={containerStyles}>
         <p css={styles.title}>{title}</p>
         <div css={styles.body}>{children}</div>

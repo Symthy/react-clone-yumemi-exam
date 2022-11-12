@@ -6,6 +6,7 @@ import { Loading } from 'src/components/elements/loading';
 import { RadioButtons, useRadioState } from 'src/components/elements/radio-buttons';
 import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
 import { MultiLineChart } from 'src/components/templates/multi-line-chart';
+import { makeAttrForTest } from 'src/fixture/attributeBuilder';
 import { commonStyles } from 'src/styles';
 import { Prefecture } from 'src/types';
 import { usePopulationsQueries } from '../api/usePopulationsQueries';
@@ -47,11 +48,12 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
         margin-top: 1rem;
         padding: 2rem 1rem 0 1rem;
       `}
+      {...makeAttrForTest('pop-graph-title')}
     >
       {prefectures.length === 0 ? (
         <div css={styles.noData}>
           <HiOutlineExclamationTriangle size={20} />
-          <p>都道府県を選択してください</p>
+          <p {...makeAttrForTest('pop-no-selected-label')}>都道府県を選択してください</p>
         </div>
       ) : isLoading && prefectures.length === 1 ? (
         <Loading />
