@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Population, PopulationDataSet, PopulationResponseResult, PopulationsPerLabel } from 'src/types';
 import { PrefectureToPopulationDataSet, PrefectureToPopulationResponseResult } from '../types';
 
@@ -14,7 +14,7 @@ export const usePopulationDatasetsState = () => {
     )
   );
 
-  const savePopulationDatasets = (results: PrefectureToPopulationResponseResult[]) => {
+  const savePopulationDatasets = useCallback((results: PrefectureToPopulationResponseResult[]) => {
     const convertToPopulationDataSet = (result: PopulationResponseResult): PopulationDataSet => {
       const labelToPopulations = new Map<string, Population[]>();
       result.data.forEach((populations: PopulationsPerLabel) => {
@@ -37,8 +37,9 @@ export const usePopulationDatasetsState = () => {
       }
       return prevDatasets;
     }, []);
+
     setPrefectureToPopulationDataSets(datasets);
-  };
+  }, []);
 
   return { perfectureToPopulationDataSets, statisticsItems, savePopulationDatasets };
 };

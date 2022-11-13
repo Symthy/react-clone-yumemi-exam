@@ -39,7 +39,7 @@ export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationG
   useEffect(() => {
     savePopulationDatasets(prefectureToPopulationResponseResults);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [perfNamesKey]);
+  }, [perfNamesKey, savePopulationDatasets]);
 
   return (
     <TitleBodyLayout

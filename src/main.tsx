@@ -9,7 +9,7 @@ async function prepare() {
     const { worker } = await import('./mocks/browser');
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    if (window.Cypress) window.appReady = true; // wait startup for e2e test by Cypress
+    if (window.Cypress) window.appReady = true; // wait startup for e2e test by Cypress. ref: https://github.com/mswjs/msw/issues/1052
     return worker.start({}).then(() => {
       worker.printHandlers();
       return null;

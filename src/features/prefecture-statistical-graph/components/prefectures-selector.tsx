@@ -25,7 +25,7 @@ export const PrefecturesSelector = ({
   useEffect(() => {
     savePrefectures(prefectureResponseResult);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [perfNamesKey]);
+  }, [perfNamesKey, savePrefectures]);
 
   return (
     <TitleBodyLayout
