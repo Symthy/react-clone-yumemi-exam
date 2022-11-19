@@ -5,7 +5,7 @@ import './index.css';
 
 // eslint-disable-next-line consistent-return
 async function prepare() {
-  if (process.env.VITE_STARTUP_MSW === 'true') {
+  if (import.meta.env.VITE_STARTUP_MSW === 'true') {
     const { worker } = await import('./mocks/browser');
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
