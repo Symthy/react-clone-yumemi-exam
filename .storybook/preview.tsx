@@ -32,5 +32,11 @@ export const parameters = {
       prefectures: mockPrefecturesApiHandler,
       populations: mockPopulationsApiHandler
     }
+  },
+  // occur 'ReferenceError: process is not defined' in Chromatic...
+  process: {
+    env: {
+      VITE_E2E_MODE: false
+    }
   }
 };

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "install-e2e": "npm --prefix ./e2e/ install ./e2e/",
+    "ci-e2e": "npm --prefix ./e2e/ ci ./e2e/",
     "dev": "vite",
     "dev-msw": "cross-env VITE_STARTUP_MSW=true vite",
     "dev-e2e": "cross-env VITE_STARTUP_MSW=true VITE_E2E_MODE=true vite",
