@@ -34,7 +34,7 @@ export const router = createBrowserRouter(
       ]
     }
   ],
-  { basename: process.env.BASE_URL } // Github Pages用
+  { basename: import.meta.env.BASE_URL } // Github Pages用
 );
 
 // ref: https://stackoverflow.com/questions/74019392/using-react-error-boundary-with-react-router?rq=1

@@ -6,7 +6,7 @@ import { Loading } from 'src/components/elements/loading';
 import { RadioButtons, useRadioState } from 'src/components/elements/radio-buttons';
 import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
 import { MultiLineChart } from 'src/components/templates/multi-line-chart';
-import { makeAttrForTest } from 'src/fixture/attributeBuilder';
+import { useMakeAttrForTest } from 'src/fixture/useMakeAttrForTest';
 import { commonStyles } from 'src/styles';
 import { Prefecture } from 'src/types';
 import { usePopulationsQueries } from '../api/usePopulationsQueries';
@@ -31,6 +31,7 @@ const styles = {
 };
 
 export const PrefecturePopulationGraph = ({ prefectures }: PrefecturePopulationGraphProps) => {
+  const makeAttrForTest = useMakeAttrForTest();
   const { perfectureToPopulationDataSets, statisticsItems, savePopulationDatasets } = usePopulationDatasetsState();
   const { isLoading, prefectureToPopulationResponseResults } = usePopulationsQueries(prefectures);
   const { selectedItem, checked, onChange } = useRadioState('総人口');

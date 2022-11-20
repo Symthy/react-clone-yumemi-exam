@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { Button } from 'src/components/elements/button';
-import { makeAttrForTest } from 'src/fixture/attributeBuilder';
+import { useMakeAttrForTest } from 'src/fixture/useMakeAttrForTest';
 import { useRedirectTop } from 'src/routes/hooks/useRedirectTop';
 import { commonStyles } from 'src/styles';
 
@@ -20,6 +20,7 @@ const styles = {
 };
 
 export const NotFoundPage = () => {
+  const makeAttrForTest = useMakeAttrForTest();
   const redirector = useRedirectTop();
   return (
     <div css={styles.container}>

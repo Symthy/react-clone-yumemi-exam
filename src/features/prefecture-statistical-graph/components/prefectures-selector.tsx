@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { Loading } from 'src/components/elements/loading';
 import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
 import { SelectionArea } from 'src/components/templates/selection-area/selection-area';
-import { makeAttrForTest } from 'src/fixture/attributeBuilder';
+import { useMakeAttrForTest } from 'src/fixture/useMakeAttrForTest';
 import { Prefecture, PrefectureResponeseResult } from 'src/types';
 import { usePrefecturesQuery } from '../api/usePrefecturesQuery';
 import { convertToSelectableItems } from '../hooks/converter';
@@ -19,6 +19,7 @@ export const PrefecturesSelector = ({
   updateSelectedPrefecture,
   savePrefectures
 }: PrefecturesSelectorProps) => {
+  const makeAttrForTest = useMakeAttrForTest();
   const { isLoading, prefectureResponseResult } = usePrefecturesQuery();
 
   const perfNamesKey = prefectureResponseResult?.map((result) => result.prefName).join('');

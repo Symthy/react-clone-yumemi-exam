@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { HiXCircle } from 'react-icons/hi';
 import { Button } from 'src/components/elements/button';
 import { TitleBodyLayout } from 'src/components/layouts/title-body-layout';
-import { makeAttrForTest } from 'src/fixture/attributeBuilder';
+import { useMakeAttrForTest } from 'src/fixture/useMakeAttrForTest';
 import { useRedirectTop } from 'src/routes/hooks/useRedirectTop';
 import { commonStyles } from 'src/styles';
 
@@ -31,6 +31,7 @@ const styles = {
 
 export const ErrorPage = ({ error }: FallbackProps) => {
   const redirector = useRedirectTop();
+  const makeAttrForTest = useMakeAttrForTest();
   return (
     <div css={styles.container}>
       <div css={styles.summary}>

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { App } from './App';
 import './index.css';
 
-// eslint-disable-next-line consistent-return
 async function prepare() {
   if (import.meta.env.VITE_STARTUP_MSW === 'true') {
     const { worker } = await import('./mocks/browser');
@@ -15,12 +14,19 @@ async function prepare() {
       return null;
     });
   }
+  return new Promise(() => {});
 }
 
-void prepare().then(() => {
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-});
+function resolveEnabledE2E() {
+  return import.meta.env.VITE_E2E_MODE === 'true';
+}
+
+void prepare()
+  .then(resolveEnabledE2E)
+  .then((isEnabledE2E) => {
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+      <React.StrictMode>
+        <App isEnabledE2E={isEnabledE2E} />
+      </React.StrictMode>
+    );
+  });

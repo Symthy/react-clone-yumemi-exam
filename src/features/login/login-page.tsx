@@ -8,7 +8,7 @@ import { LabelForm } from 'src/components/elements/label-form';
 import { StyledDescription } from 'src/components/styled/description';
 import { StyledInputTextField } from 'src/components/styled/input-text-field';
 import { StyledTitle } from 'src/components/styled/title/title';
-import { makeAttrForTest } from 'src/fixture/attributeBuilder';
+import { useMakeAttrForTest } from 'src/fixture/useMakeAttrForTest';
 import { commonStyles } from 'src/styles';
 import { useSubmitApiKey } from './hooks/useSubmitApiKey';
 
@@ -30,6 +30,7 @@ const styles = {
 };
 
 export const LoginPage = () => {
+  const makeAttrForTest = useMakeAttrForTest();
   const [apiKey, setApiKey] = useState('');
   const onInputApiKey = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
