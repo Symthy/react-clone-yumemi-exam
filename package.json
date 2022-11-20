@@ -23,7 +23,8 @@
     "init-msw": "msw init public/",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
     "e2e-test": "sleep 1 && npm run cy-run --prefix e2e",
-    "e2e-run": "npm-run-all -p dev-e2e e2e-test"
+    "e2e-run": "npm-run-all -p dev-e2e e2e-test",
+    "all": "npm run build && npm run test && npm run test-storybook && npm run e2e-run"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
